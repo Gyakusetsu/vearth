@@ -18,10 +18,17 @@ namespace Vearth3D {
 
         [SerializeField]
         public List<GameObject> TreesObjects = new List<GameObject>();
+        
+        [SerializeField]
+        public List<GameObject> FlowersObjects = new List<GameObject>();
 
         public SerializedObject m_TreesObjectsSO = null;
 
-        public ReorderableList m_ReorderableList = null;
+        public ReorderableList m_TreesReorderableList = null;
+        
+        public SerializedObject m_FlowersObjectsSO = null;
+
+        public ReorderableList m_FlowersReorderableList = null;
 
         void OnEnable() {
                 
@@ -29,16 +36,27 @@ namespace Vearth3D {
             int TOP_PADDING = 2;
 
             m_TreesObjectsSO = new SerializedObject(target);
-            m_ReorderableList = new ReorderableList(m_TreesObjectsSO, m_TreesObjectsSO.FindProperty("TreesObjects"), true, true, true, true);
+            m_TreesReorderableList = new ReorderableList(m_TreesObjectsSO, m_TreesObjectsSO.FindProperty("TreesObjects"), true, true, true, true);
         
-            m_ReorderableList.drawHeaderCallback = (rect) => EditorGUI.LabelField(rect, "Trees");
-            m_ReorderableList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+            m_TreesReorderableList.drawHeaderCallback = (rect) => EditorGUI.LabelField(rect, "Trees");
+            m_TreesReorderableList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
             {
                 rect.y += TOP_PADDING;
                 rect.height = EditorGUIUtility.singleLineHeight;
-                EditorGUI.PropertyField(rect, m_ReorderableList.serializedProperty.GetArrayElementAtIndex(index), GUIContent.none);
+                EditorGUI.PropertyField(rect, m_TreesReorderableList.serializedProperty.GetArrayElementAtIndex(index), GUIContent.none);
             };
 
+            
+            m_FlowersObjectsSO = new SerializedObject(target);
+            m_FlowersReorderableList = new ReorderableList(m_FlowersObjectsSO, m_FlowersObjectsSO.FindProperty("FlowersObjects"), true, true, true, true);
+        
+            m_FlowersReorderableList.drawHeaderCallback = (rect) => EditorGUI.LabelField(rect, "Flowers");
+            m_FlowersReorderableList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+            {
+                rect.y += TOP_PADDING;
+                rect.height = EditorGUIUtility.singleLineHeight;
+                EditorGUI.PropertyField(rect, m_FlowersReorderableList.serializedProperty.GetArrayElementAtIndex(index), GUIContent.none);
+            };
         }
 
         // Add menu named "My Window" to the Window menu

@@ -94,7 +94,7 @@ namespace Vearth3D {
                             if(vearth.m_TreesObjectsSO != null)
                             {
                                 vearth.m_TreesObjectsSO.Update();
-                                vearth.m_ReorderableList.DoLayoutList();
+                                vearth.m_TreesReorderableList.DoLayoutList();
                                 vearth.m_TreesObjectsSO.ApplyModifiedProperties();
                             }
                         } EditorGUILayout.EndVertical();
@@ -106,33 +106,5 @@ namespace Vearth3D {
 
             } EditorGUILayout.EndHorizontal();
         }
-
-        /* 
-        public void TreesDragAndDrop() {
-            Rect myRect = GUILayoutUtility.GetRect(0,20,GUILayout.ExpandWidth(true));
-            GUI.Box(myRect,"Drag and Drop Prefabs to this Box!");
-            if (myRect.Contains(Event.current.mousePosition))
-            {
-                if (Event.current.type == EventType.DragUpdated)
-                {
-                    DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
-                    Debug.Log("Drag Updated!");
-                    Event.current.Use ();
-                }   
-                else if (Event.current.type == EventType.DragPerform)
-                {
-                    Debug.Log("Drag Perform!");
-                    Debug.Log(DragAndDrop.objectReferences.Length);
-                    for(int i = 0; i<DragAndDrop.objectReferences.Length;i++)
-                    {
-                        if (!TreesObjects.Contains(DragAndDrop.objectReferences[i] as GameObject)) {
-                            TreesObjects.Add(DragAndDrop.objectReferences[i] as GameObject);
-                        }
-                   }
-                    Event.current.Use ();
-                }
-            }
-        }
-        */
     }
 }

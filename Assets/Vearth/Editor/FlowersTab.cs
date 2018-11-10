@@ -49,7 +49,7 @@ namespace Vearth3D {
 
                             PetalDistance = EditorGUILayout.Slider("Petal distance from center", PetalDistance, 0.001f, 0.05f);
                             PetalsCount = EditorGUILayout.IntSlider("# of petals", PetalsCount, 4, 200);
-                            BudsCount = EditorGUILayout.IntSlider("# of buds", BudsCount, 0, BudsCount);
+                            BudsCount = EditorGUILayout.IntSlider("# of buds", BudsCount, 0, PetalsCount);
                             Scale = EditorGUILayout.Slider("Scale", Scale, 0.1f, 0.6f);
                             Minimum = EditorGUILayout.Slider("Min", Minimum, 0.0f, 1f);
                             Angle = EditorGUILayout.Slider("Angle", Angle, 30f, 100f);

@@ -156,7 +156,15 @@ namespace mattatz.ProceduralFlower {
 			mesh.RecalculateBounds();
 			mesh.RecalculateNormals();
 
-			return mesh;
+			
+			var meshSimplifier = new UnityMeshSimplifier.MeshSimplifier();
+		//	meshSimplifier. meshSimplifier.PreserveFoldovers = true;
+			meshSimplifier.Initialize(mesh);
+		//	meshSimplifier.SimplifyMesh(quality);
+			meshSimplifier.SimplifyMeshLossless();
+			var destMesh = meshSimplifier.ToMesh();
+
+			return destMesh;
 		}
 
 		static int[] GetCounts (List<PFControlPoint> controls, int count) {

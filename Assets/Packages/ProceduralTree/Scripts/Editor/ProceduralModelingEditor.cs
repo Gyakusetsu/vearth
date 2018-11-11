@@ -10,9 +10,16 @@ namespace ProceduralModeling {
 	public class ProceduralModelingEditor : Editor {
 
 		public override void OnInspectorGUI() {
+			/*
 			EditorGUI.BeginChangeCheck();
 			base.OnInspectorGUI();
 			if(EditorGUI.EndChangeCheck()) {
+				var pm = target as ProceduralModelingBase;
+				pm.Rebuild();
+			}
+			*/
+			base.OnInspectorGUI();
+			if (GUILayout.Button("Generate")) {
 				var pm = target as ProceduralModelingBase;
 				pm.Rebuild();
 			}

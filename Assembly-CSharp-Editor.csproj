@@ -361,6 +361,8 @@
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{44E4CECA-0BEE-3419-7CEF-79F5B5BF6E87}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+    <ProjectReference Include="UnityMeshSimplifier.csproj">
+      <Project>{8B27D3BC-5E15-717F-1E14-A6B710F7CC10}</Project>      <Name>UnityMeshSimplifier</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

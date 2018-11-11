@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using mattatz.ProceduralFlower;
 using UnityEngine.Rendering;
+using UnityEditor;
 
 namespace ProceduralModeling {
 
@@ -20,11 +21,12 @@ namespace ProceduralModeling {
 
         [HideInInspector] public float height = 2f;
 		[HideInInspector] public int leafCount = 6;
-        public Vector2 leafScaleRange = new Vector2(0.2f, 0.825f);
-        public Vector2 leafSegmentRange = new Vector2(0.2f, 0.92f);
+        [HideInInspector] public Vector2 leafScaleRange = new Vector2(0.2f, 0.825f);
+        [HideInInspector] public Vector2 leafSegmentRange = new Vector2(0.2f, 0.92f);
+
 
 		
-		[SerializeField] StemData stemData;
+	//	[SerializeField] StemData stemData;
 		[SerializeField] ShapeData leafData;
         [SerializeField] int seed = 0;
         PFRandom rand;
@@ -116,11 +118,24 @@ namespace ProceduralModeling {
 			mesh.normals = normals.ToArray();
 			mesh.tangents = tangents.ToArray();
 			mesh.uv = uvs.ToArray();
-			mesh.triangles = triangles.ToArray();
-			return mesh;
+			mesh.triangles = triangles.ToArray();  
+
+			float quality = 0.5f;
+			var meshSimplifier = new UnityMeshSimplifier.MeshSimplifier();
+		//	meshSimplifier. meshSimplifier.PreserveFoldovers = true;
+			meshSimplifier.Initialize(mesh);
+		//	meshSimplifier.SimplifyMesh(quality);
+			meshSimplifier.SimplifyMeshLossless();
+			var destMesh = meshSimplifier.ToMesh();
+
+			return destMesh;
 		}
 
 		protected override void BuildLeaves() {
+			foreach (Transform child in transform) {
+				GameObject.Destroy(child.gameObject);
+			}
+
 			leafSegmentList.ForEach(segments => {
 				
 				var offset = leafSegmentRange.x * segments.Count;
@@ -152,7 +167,7 @@ namespace ProceduralModeling {
 
             rand = new PFRandom(seed);
 			leafData.Init();
-			stemData.Init();
+		//	stemData.Init();
 			leafPoints = new List<Point>();
 			leafDirections = new List<Vector3>();
 			leafSegmentList = new List<List<Point>>();
@@ -206,60 +221,29 @@ namespace ProceduralModeling {
 		GameObject CreateShape(string name, PFPartType type, ShapeData data, bool visible) {
 			return CreateBase(name, type, data.mesh, data.material, data.shadowCastingMode, data.receiveShadows, visible);
 		}
-
+		/*
 		GameObject CreateStem(string name, PFStem stem, ShadowCastingMode shadowCastingMode, bool receiveShadows, Func<float, float> f, float height, float bend, bool visible) {
 			var controls = GetControls(4, height, bend);
 			var mesh = stem.Build(controls, f);
 			return CreateBase(name, PFPartType.Stover, mesh, stemData.material, stemData.shadowCastingMode, stemData.receiveShadows, visible);
 		}
+		*/
 		
 		GameObject CreateLeaf (Point segment, Vector3 dir, float angle, bool visible) {
-			var stem = new PFStem(10, 2, 0.01f);
-			var root = CreateStem("Stem", stem, leafData.shadowCastingMode, leafData.receiveShadows, (r) => Mathf.Max(1f - r, 0.2f), 0.05f, 0.0f, visible);
-			root.transform.localPosition = segment.position;
-			root.transform.localRotation *= Quaternion.FromToRotation(Vector3.forward, dir) * Quaternion.AngleAxis(angle, Vector3.forward);
+		//	var stem = new PFStem(10, 2, 0.01f);
+		//	var root = CreateStem("Stem", stem, leafData.shadowCastingMode, leafData.receiveShadows, (r) => Mathf.Max(1f - r, 0.2f), 0.05f, 0.0f, visible);
+		//	root.transform.localPosition = segment.position;
+		//	root.transform.localRotation *= Quaternion.FromToRotation(Vector3.forward, dir) * Quaternion.AngleAxis(angle, Vector3.forward);
 
 			var leaf = CreateShape("Leaf", PFPartType.Stover, leafData, visible);
-			leaf.transform.SetParent(root.transform, false);
-			leaf.transform.localPosition = stem.Tip.position;
-			leaf.transform.localRotation *= Quaternion.AngleAxis(rand.SampleRange(0f, 30f), Vector3.up);
-
-			var part = root.GetComponent<PFPart>();
-			part.SetSpeed(5f);
-			part.Animate();
-			part.Add(leaf.GetComponent<PFPart>(), 1f);
-
-			return root;
-		}
-
-
-/*
-		GameObject CreateLeaf (Point segment, Vector3 dir, float angle, bool visible, ShapeData leafData) {
-
-//			var stem = new PFStem(10, 2, 0.01f);
-
-//			var root = CreateStem("Stem", stem, leafData.shadowCastingMode, leafData.receiveShadows, (r) => Mathf.Max(1f - r, 0.2f), 0.05f, 0.0f, visible);
-//			root.transform.localPosition = segment.position;
-//			root.transform.localRotation *= Quaternion.FromToRotation(Vector3.forward, dir) * Quaternion.AngleAxis(angle, Vector3.forward);
-
-			var leaf = CreateShape("Leaf", PFPartType.Stover, leafData, visible);
-			leaf.transform.SetParent(this.transform);
 			leaf.transform.localPosition = segment.position;
+			leaf.transform.localRotation *= Quaternion.FromToRotation(Vector3.forward, dir) * Quaternion.AngleAxis(angle, Vector3.forward) 
+											* Quaternion.AngleAxis(rand.SampleRange(0f, 30f), Vector3.up);
+
 		//	leaf.transform.localRotation *= Quaternion.AngleAxis(rand.SampleRange(0f, 30f), Vector3.up);
-			leaf.transform.localRotation *= Quaternion.FromToRotation(Vector3.forward, dir) * Quaternion.AngleAxis(angle, Vector3.forward);
-
-			leaf.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-
-			var part = leaf.GetComponent<PFPart>();
-			part.SetSpeed(5f);
-			part.Animate();
-		//	part.Add(leaf.GetComponent<PFPart>(), 1f);
 
 			return leaf;
 		}
-
-		
-*/
 	}
 
 	[System.Serializable]

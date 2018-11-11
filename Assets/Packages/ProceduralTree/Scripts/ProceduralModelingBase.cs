@@ -32,6 +32,7 @@ namespace ProceduralModeling {
 				}
 			} 
 			Filter.sharedMesh = Build();
+		//	Filter.sharedMesh.MarkDynamic();
 			BuildLeaves();
 		}
 

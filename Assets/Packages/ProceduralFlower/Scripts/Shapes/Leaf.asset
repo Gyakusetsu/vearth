@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -16,8 +16,8 @@ MonoBehaviour:
     height: 0.39648438
   - width: 0.068359375
     height: 0.88671875
-  size: 1
-  numberOfVerticesOnOneSide: 30
-  resolution: 4
-  noiseDepth: 0.2
-  noiseScale: {x: 2, y: 3}
+  size: 0.3
+  numberOfVerticesOnOneSide: 20
+  resolution: 1
+  noiseDepth: 0.1
+  noiseScale: {x: 1, y: 1}

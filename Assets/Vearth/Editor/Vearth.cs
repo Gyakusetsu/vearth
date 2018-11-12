@@ -93,7 +93,7 @@ namespace Vearth3D {
             }
 
             GUIStyle tabStyle = new GUIStyle(GUI.skin.scrollView);
-            tabStyle.margin = new RectOffset(13, 13, 13, 13);
+            tabStyle.margin = new RectOffset(7, 7, 7, 7);
 
             EditorGUILayout.BeginVertical(tabStyle); {
                 // Current Tab Checker

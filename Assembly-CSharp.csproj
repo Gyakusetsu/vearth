@@ -115,6 +115,10 @@
      <Compile Include="Assets\Packages\ProceduralTree\Scripts\Curve\FrenetFrame.cs" />
      <Compile Include="Assets\Packages\ProceduralTree\Scripts\ProceduralModelingBase.cs" />
      <Compile Include="Assets\Packages\ProceduralTree\Scripts\ProceduralTree.cs" />
+     <Compile Include="Assets\Terrain Stitch\Terrain Stitch Scripts\IntArrayComparer.cs" />
+     <Compile Include="Assets\Terrain Stitch\Terrain Stitch Scripts\TerrainNeighbours.cs" />
+     <Compile Include="Assets\Terrain Stitch\Terrain Stitch Scripts\Third Party\Complex.cs" />
+     <Compile Include="Assets\Terrain Stitch\Terrain Stitch Scripts\Third Party\Matrix.cs" />
      <Compile Include="Assets\Vearth\TerrainModder.cs" />
      <Compile Include="Assets\Vearth\VearthTerrainData.cs" />
      <None Include="Assets\Packages\ProceduralFlower\Shaders\Combine.shader" />
@@ -126,6 +130,7 @@
      <None Include="Assets\Packages\ProceduralTree\Shaders\ProceduralTree.cginc" />
      <None Include="Assets\LibNoise.Unity\COPYING.LESSER.txt" />
      <None Include="Assets\Packages\ProceduralFlower\Shaders\Bud.shader" />
+     <None Include="Assets\shaderdata.txt" />
      <None Include="Assets\Packages\ProceduralFlower\Shaders\Garden.shader" />
      <None Include="Assets\Packages\ProceduralFlower\Shaders\Stover.shader" />
      <None Include="Assets\Packages\ProceduralFlower\Shaders\Petal.shader" />

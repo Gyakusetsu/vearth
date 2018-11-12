@@ -40,7 +40,7 @@ namespace Vearth3D {
                     EditorGUILayout.BeginVertical(EditorStyles.textField); {
                         
                         GUIStyle SectionStyle = new GUIStyle();
-                        SectionStyle.padding = new RectOffset(13, 13, 13, 13);
+                        SectionStyle.padding = new RectOffset(7, 7, 7, 7);
                         
                         EditorGUILayout.BeginVertical(SectionStyle); {
                                 
@@ -85,7 +85,7 @@ namespace Vearth3D {
                     EditorGUILayout.BeginVertical(EditorStyles.textField); {
                         
                         GUIStyle SectionStyle = new GUIStyle();
-                        SectionStyle.padding = new RectOffset(13, 13, 13, 13);
+                        SectionStyle.padding = new RectOffset(7, 7, 7, 7);
                         
                         EditorGUILayout.BeginVertical(SectionStyle); {
                             Vearth vearth = EditorWindow.GetWindow<Vearth>();

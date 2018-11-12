@@ -70,7 +70,7 @@ namespace Vearth3D {
                 EditorGUILayout.BeginVertical(EditorStyles.textField); {
                         
                     GUIStyle SectionStyle = new GUIStyle();
-                    SectionStyle.padding = new RectOffset(13, 13, 13, 13);
+                    SectionStyle.padding = new RectOffset(7, 7, 7, 7);
 
                     EditorGUILayout.BeginVertical(SectionStyle); {
                         
@@ -146,16 +146,12 @@ namespace Vearth3D {
                 EditorGUILayout.BeginVertical(EditorStyles.textField); {
                         
                     GUIStyle SectionStyle = new GUIStyle();
-                    SectionStyle.padding = new RectOffset(13, 13, 13, 13);
+                    SectionStyle.padding = new RectOffset(7, 7, 7, 7);
 
                     EditorGUILayout.BeginVertical(SectionStyle); {
                         EditorGUILayout.BeginVertical(); {
                             
                             if (Vearth.SelectedTerrain != null) {
-
-                                EditorGUILayout.LabelField("Elevations per Scale: ", EditorStyles.boldLabel);
-                                EditorGUILayout.Space();
-
                                 SplatPrototype[] splatdata = Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData.splatPrototypes;
                                 SplatTextureNames = new string[splatdata.Length];
 
@@ -165,6 +161,12 @@ namespace Vearth3D {
                                     {
                                         SplatTextureNames[i] = splatdata[i].texture.name;
                                     }
+
+
+                                    EditorGUILayout.LabelField("Elevations per Scale: ", EditorStyles.boldLabel);
+                                    EditorGUILayout.Space();
+
+
                                     EditorGUILayout.BeginHorizontal(); {  
                                         SplatElevationTextureID[0] = EditorGUILayout.Popup(SplatElevationTextureID[0], 
                                                                         SplatTextureNames, GUILayout.Width(120f));
@@ -186,90 +188,92 @@ namespace Vearth3D {
                                         SplatElevationHeight[9] = EditorGUILayout.Slider(SplatElevationHeight[9], 0.0f, 1.0f);
                                         SplatElevationHeight[9] = Mathf.Clamp(SplatElevationHeight[9], SplatElevationHeight[8], 1.0f);
 
-					                SplatElevationTextureID[10] = SplatElevationTextureID[9];
-					                SplatElevationHeight[10] = SplatElevationHeight[9];
+                                        SplatElevationTextureID[10] = SplatElevationTextureID[9];
+                                        SplatElevationHeight[10] = SplatElevationHeight[9];
                                     } EditorGUILayout.EndHorizontal();
+
+                                    EditorGUILayout.Space();
+                                    EditorGUILayout.LabelField("Slope per Scale: ", EditorStyles.boldLabel);
+                                    EditorGUILayout.Space();
+
+                                    EditorGUILayout.BeginHorizontal(); {
+                                        GUILayout.Label("(Elevation Texture)", GUILayout.Width(120f));
+                                        SplatSlopeSteepness[0] = EditorGUILayout.Slider(SplatSlopeSteepness[0], 0.0f, 90.0f);
+                                        SplatSlopeSteepness[0] = Mathf.Clamp(SplatSlopeSteepness[0], 0.0f, 90.0f);
+                                        SplatSlopeSteepness[1] = Mathf.Clamp(SplatSlopeSteepness[1], SplatSlopeSteepness[0], 90.0f);
+                                    } EditorGUILayout.EndHorizontal();
+
+                                        GUILayout.Space(3);
+                                    EditorGUILayout.BeginHorizontal(); {
+                                        SplatSlopeTextureID[1] = EditorGUILayout.Popup(SplatSlopeTextureID[1], 
+                                                                            SplatTextureNames, GUILayout.Width(120f));
+                                        SplatSlopeSteepness[1] = EditorGUILayout.Slider(SplatSlopeSteepness[1], 0.0f, 90.0f);
+                                        SplatSlopeSteepness[1] = Mathf.Clamp(SplatSlopeSteepness[1], 0.0f, 90.0f);
+                                        SplatSlopeSteepness[2] = Mathf.Clamp(SplatSlopeSteepness[2], SplatSlopeSteepness[1], 90.0f);
+                                    } EditorGUILayout.EndHorizontal();
+
+                                        GUILayout.Space(3);
+                                    EditorGUILayout.BeginHorizontal(); {
+                                        SplatSlopeTextureID[2] = EditorGUILayout.Popup(SplatSlopeTextureID[2], 
+                                                                            SplatTextureNames, GUILayout.Width(120f));
+                                        SplatSlopeSteepness[2] = EditorGUILayout.Slider(SplatSlopeSteepness[2], 0.0f, 90.0f);
+                                        SplatSlopeSteepness[2] = Mathf.Clamp(SplatSlopeSteepness[2], 0.0f, 90.0f);
+                                        SplatSlopeSteepness[3] = Mathf.Clamp(SplatSlopeSteepness[3], SplatSlopeSteepness[2], 90.0f);
+                                    } EditorGUILayout.EndHorizontal();
+
+                                        GUILayout.Space(3);
+                                    EditorGUILayout.BeginHorizontal(); {
+                                        SplatSlopeTextureID[3] = EditorGUILayout.Popup(SplatSlopeTextureID[3], 
+                                                                            SplatTextureNames, GUILayout.Width(120f));
+                                        SplatSlopeSteepness[3] = EditorGUILayout.Slider(SplatSlopeSteepness[3], 0.0f, 90.0f);
+                                        SplatSlopeSteepness[3] = Mathf.Clamp(SplatSlopeSteepness[3], 0.0f, 90.0f);
+                                    
+                                        SplatSlopeTextureID[4] = SplatSlopeTextureID[3];
+                                        SplatSlopeSteepness[4] = SplatSlopeSteepness[3];
+                                    } EditorGUILayout.EndHorizontal();
+
+                                    EditorGUILayout.Space();
+                                    
+                                    UseFlowTexture = EditorGUILayout.BeginToggleGroup("Flow-Map Texturing", UseFlowTexture); {
+                                        
+                                        EditorGUILayout.Space();
+                                        FlowTextureID = EditorGUILayout.Popup(FlowTextureID, SplatTextureNames, GUILayout.Width(120)); 
+                                        GUILayout.Space(3);
+                                        FlowTextureParams[0] = EditorGUILayout.Slider("Iterations",FlowTextureParams[0],1f,100f);
+                                        GUILayout.Space(3);
+                                        FlowTextureParams[3] = EditorGUILayout.Slider("Initial",FlowTextureParams[3],0.0f,5.0f);
+                                        GUILayout.Space(3);
+                                        FlowTextureParams[1] = EditorGUILayout.Slider("Push Down",FlowTextureParams[1],0.05f,1.0f);
+                                        GUILayout.Space(3);
+                                        FlowTextureParams[2] = EditorGUILayout.Slider("Pull Down",FlowTextureParams[2],0.05f,1.0f);
+                                        GUILayout.Space(3);
+                                        FlowTextureParams[4] = EditorGUILayout.Slider("Min Slope",FlowTextureParams[4],0.05f,90.0f);
+                                        GUILayout.Space(3);
+                                    } EditorGUILayout.EndToggleGroup();
+
+                                    EditorGUILayout.Space();
+                                    if (GUILayout.Button("Apply Textures", GUILayout.MinHeight(30))) {
+                                        if (Vearth.SelectedTerrain != null) {
+                                            Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,
+                                                "vearth:Generate Splatmap For Selected Terrain");
+
+                                            EditorUtility.DisplayProgressBar("Generating SplatMaps", "Generating "
+                                                                + Vearth.SelectedTerrain.name, 1f);
+
+                                            TerrainModder.ApplyTextures(Vearth.SelectedTerrain.GetComponent<Terrain>(),
+                                                                        SplatElevationTextureID, SplatElevationHeight,
+                                                                        SplatSlopeTextureID, SplatSlopeSteepness, UseFlowTexture,
+                                                                        FlowTextureID, FlowTextureParams);
+                                            EditorUtility.ClearProgressBar();
+                                        } else {
+                                            EditorUtility.DisplayDialog("Vearth Error", "Please select a Terrain GameObject first!", "OK", "CANCEL");
+                                        }
+                                    }
                                 } else {
                                     EditorGUILayout.LabelField("Selected terrain has no textures assigned.", EditorStyles.boldLabel);
                                 }
                                 
-                                EditorGUILayout.Space();
-                                EditorGUILayout.LabelField("Slope per Scale: ", EditorStyles.boldLabel);
-                                EditorGUILayout.Space();
-
-                                EditorGUILayout.BeginHorizontal(); {
-	                                GUILayout.Label("(Elevation Texture)", GUILayout.Width(120f));
-                                    SplatSlopeSteepness[0] = EditorGUILayout.Slider(SplatSlopeSteepness[0], 0.0f, 90.0f);
-                                    SplatSlopeSteepness[0] = Mathf.Clamp(SplatSlopeSteepness[0], 0.0f, 90.0f);
-                                    SplatSlopeSteepness[1] = Mathf.Clamp(SplatSlopeSteepness[1], SplatSlopeSteepness[0], 90.0f);
-                                } EditorGUILayout.EndHorizontal();
-
-                                    GUILayout.Space(3);
-                                EditorGUILayout.BeginHorizontal(); {
-	                                SplatSlopeTextureID[1] = EditorGUILayout.Popup(SplatSlopeTextureID[1], 
-                                                                        SplatTextureNames, GUILayout.Width(120f));
-                                    SplatSlopeSteepness[1] = EditorGUILayout.Slider(SplatSlopeSteepness[1], 0.0f, 90.0f);
-                                    SplatSlopeSteepness[1] = Mathf.Clamp(SplatSlopeSteepness[1], 0.0f, 90.0f);
-                                    SplatSlopeSteepness[2] = Mathf.Clamp(SplatSlopeSteepness[2], SplatSlopeSteepness[1], 90.0f);
-                                } EditorGUILayout.EndHorizontal();
-
-                                    GUILayout.Space(3);
-                                EditorGUILayout.BeginHorizontal(); {
-	                                SplatSlopeTextureID[2] = EditorGUILayout.Popup(SplatSlopeTextureID[2], 
-                                                                        SplatTextureNames, GUILayout.Width(120f));
-                                    SplatSlopeSteepness[2] = EditorGUILayout.Slider(SplatSlopeSteepness[2], 0.0f, 90.0f);
-                                    SplatSlopeSteepness[2] = Mathf.Clamp(SplatSlopeSteepness[2], 0.0f, 90.0f);
-                                    SplatSlopeSteepness[3] = Mathf.Clamp(SplatSlopeSteepness[3], SplatSlopeSteepness[2], 90.0f);
-                                } EditorGUILayout.EndHorizontal();
-
-                                    GUILayout.Space(3);
-                                EditorGUILayout.BeginHorizontal(); {
-	                                SplatSlopeTextureID[3] = EditorGUILayout.Popup(SplatSlopeTextureID[3], 
-                                                                        SplatTextureNames, GUILayout.Width(120f));
-                                    SplatSlopeSteepness[3] = EditorGUILayout.Slider(SplatSlopeSteepness[3], 0.0f, 90.0f);
-                                    SplatSlopeSteepness[3] = Mathf.Clamp(SplatSlopeSteepness[3], 0.0f, 90.0f);
-                                  
-                                    SplatSlopeTextureID[4] = SplatSlopeTextureID[3];
-                                    SplatSlopeSteepness[4] = SplatSlopeSteepness[3];
-                                } EditorGUILayout.EndHorizontal();
-
-                                EditorGUILayout.Space();
-                                
-                                UseFlowTexture = EditorGUILayout.BeginToggleGroup("Flow-Map Texturing", UseFlowTexture); {
-                                    
-                                    EditorGUILayout.Space();
-                                    FlowTextureID = EditorGUILayout.Popup(FlowTextureID, SplatTextureNames, GUILayout.Width(120)); 
-                                    GUILayout.Space(3);
-                                    FlowTextureParams[0] = EditorGUILayout.Slider("Iterations",FlowTextureParams[0],1f,100f);
-                                    GUILayout.Space(3);
-                                    FlowTextureParams[3] = EditorGUILayout.Slider("Initial",FlowTextureParams[3],0.0f,5.0f);
-                                    GUILayout.Space(3);
-                                    FlowTextureParams[1] = EditorGUILayout.Slider("Push Down",FlowTextureParams[1],0.05f,1.0f);
-                                    GUILayout.Space(3);
-                                    FlowTextureParams[2] = EditorGUILayout.Slider("Pull Down",FlowTextureParams[2],0.05f,1.0f);
-                                    GUILayout.Space(3);
-                                    FlowTextureParams[4] = EditorGUILayout.Slider("Min Slope",FlowTextureParams[4],0.05f,90.0f);
-                                    GUILayout.Space(3);
-                                } EditorGUILayout.EndToggleGroup();
-
-                                EditorGUILayout.Space();
-                                if (GUILayout.Button("Apply Textures", GUILayout.MinHeight(30))) {
-                                    if (Vearth.SelectedTerrain != null) {
-                                        Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,
-                                            "vearth:Generate Splatmap For Selected Terrain");
-
-                                        EditorUtility.DisplayProgressBar("Generating SplatMaps", "Generating "
-                                                            + Vearth.SelectedTerrain.name, 1f);
-
-                                        TerrainModder.ApplyTextures(Vearth.SelectedTerrain.GetComponent<Terrain>(),
-                                                                    SplatElevationTextureID, SplatElevationHeight,
-                                                                    SplatSlopeTextureID, SplatSlopeSteepness, UseFlowTexture,
-                                                                    FlowTextureID, FlowTextureParams);
-                                        EditorUtility.ClearProgressBar();
-                                    } else {
-                                        EditorUtility.DisplayDialog("Vearth Error", "Please select a Terrain GameObject first!", "OK", "CANCEL");
-                                    }
-                                }
+                              
                             } else {       
                                 EditorGUILayout.LabelField("Please select a Terrain GameObject first!", EditorStyles.boldLabel);
                             }

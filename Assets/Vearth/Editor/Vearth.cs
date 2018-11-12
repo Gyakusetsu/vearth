@@ -73,12 +73,24 @@ namespace Vearth3D {
 
             // Get existing open window or if none, make a new one:
             Vearth window = (Vearth)EditorWindow.GetWindow(typeof(Vearth), false, "Vearth");
-            window.minSize = new Vector2(600, 300);
+            window.minSize = new Vector2(450, 300);
             window.Show();
         }
 
         void OnGUI()
         {
+
+            if (Selection.activeGameObject != null) {  
+                if(Selection.activeGameObject.GetComponent<Terrain>() != null) {
+                    if (SelectedTerrain != Selection.activeGameObject) {
+                        SelectedTerrain = Selection.activeGameObject;
+                    }
+                } else {
+                    SelectedTerrain = null;
+                }
+            } else {
+                SelectedTerrain = null;
+            }
 
             GUIStyle tabStyle = new GUIStyle(GUI.skin.scrollView);
             tabStyle.margin = new RectOffset(13, 13, 13, 13);
@@ -107,18 +119,6 @@ namespace Vearth3D {
                         EditorStyles.toolbarButton);
 
             } EditorGUILayout.EndVertical();
-
-            if (Selection.activeGameObject != null) {  
-                if(Selection.activeGameObject.GetComponent<Terrain>() != null) {
-                    if (SelectedTerrain != Selection.activeGameObject) {
-                        SelectedTerrain = Selection.activeGameObject;
-                    }
-                } else {
-                    SelectedTerrain = null;
-                }
-            } else {
-                SelectedTerrain = null;
-            }
         }
     }
 

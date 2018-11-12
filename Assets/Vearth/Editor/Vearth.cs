@@ -15,6 +15,8 @@ namespace Vearth3D {
         Vector2 scrollPos;
 
         static VearthTab[] vearthTabs = new VearthTab[4];
+        
+        public static GameObject SelectedTerrain;
 
         [SerializeField]
         public List<GameObject> TreesObjects = new List<GameObject>();
@@ -105,6 +107,18 @@ namespace Vearth3D {
                         EditorStyles.toolbarButton);
 
             } EditorGUILayout.EndVertical();
+
+            if (Selection.activeGameObject != null) {  
+                if(Selection.activeGameObject.GetComponent<Terrain>() != null) {
+                    if (SelectedTerrain != Selection.activeGameObject) {
+                        SelectedTerrain = Selection.activeGameObject;
+                    }
+                } else {
+                    SelectedTerrain = null;
+                }
+            } else {
+                SelectedTerrain = null;
+            }
         }
     }
 

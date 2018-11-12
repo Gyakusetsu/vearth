@@ -115,6 +115,8 @@
      <Compile Include="Assets\Packages\ProceduralTree\Scripts\Curve\FrenetFrame.cs" />
      <Compile Include="Assets\Packages\ProceduralTree\Scripts\ProceduralModelingBase.cs" />
      <Compile Include="Assets\Packages\ProceduralTree\Scripts\ProceduralTree.cs" />
+     <Compile Include="Assets\Vearth\TerrainModder.cs" />
+     <Compile Include="Assets\Vearth\VearthTerrainData.cs" />
      <None Include="Assets\Packages\ProceduralFlower\Shaders\Combine.shader" />
      <None Include="Assets\Packages\ProceduralFlower\Shaders\ProceduralFlower.cginc" />
      <None Include="Assets\Packages\ProceduralTree\Shaders\ProceduralTreeStandard.shader" />

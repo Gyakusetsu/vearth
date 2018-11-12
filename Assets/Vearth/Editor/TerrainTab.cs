@@ -39,7 +39,7 @@ namespace Vearth3D {
 
         float TempFloat;
             
-        int resolution = 155;
+        int resolution = 128;
 
         public TerrainTab(string description) : base(description) {
             Generate2DNoise(SelectedNoise);
@@ -92,7 +92,25 @@ namespace Vearth3D {
                         } EditorGUILayout.EndVertical();
                         
                         GUILayout.Space(13f);
-                        GUILayout.Box(previewTexture);
+
+                        EditorGUILayout.BeginVertical(GUILayout.MaxWidth(resolution + 3)); {
+                            GUILayout.Box(previewTexture);
+                            if (GUILayout.Button("Apply Noise", GUILayout.MinHeight(20f))) {
+                                if (Vearth.SelectedTerrain != null) {
+                                    Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,
+                                        "vearth:Generate All Heightmaps");
+
+                                    EditorUtility.DisplayProgressBar("Generating Terrain", "Generating "
+                                                        + Vearth.SelectedTerrain.name, 1f);
+                                    TerrainModder.ApplyHeightMap(Vearth.SelectedTerrain.GetComponent<Terrain>(),
+                                                                previewModule, Heights, Alpha);
+                                    EditorUtility.ClearProgressBar();
+                                } else {
+                                    EditorUtility.DisplayDialog("Vearth Error", "Please select a Terrain GameObject first!", "OK", "CANCEL");
+                                }
+                            }
+                        } EditorGUILayout.EndVertical(); 
+
                     } EditorGUILayout.EndHorizontal();
                 } EditorGUILayout.EndVertical();
             } EditorGUILayout.EndVertical();

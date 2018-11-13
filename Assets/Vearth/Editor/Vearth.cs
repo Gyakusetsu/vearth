@@ -10,7 +10,7 @@ namespace Vearth3D {
     {
         int toolbarIndex = 0;
 
-        string[] toolbarTitles = {"Terrain", "Details", "Trees", "Flowers"};
+        string[] toolbarTitles = {"Terrain", "Terrain Details", "Trees", "Flowers"};
 
         Vector2 scrollPos;
 

@@ -10,7 +10,7 @@ namespace Vearth3D {
     {
         int toolbarIndex = 0;
 
-        string[] toolbarTitles = {"Terrain", "Trees", "Flowers", "Generate"};
+        string[] toolbarTitles = {"Terrain", "Details", "Trees", "Flowers"};
 
         Vector2 scrollPos;
 
@@ -62,17 +62,17 @@ namespace Vearth3D {
         }
 
         // Add menu named "My Window" to the Window menu
-        [MenuItem("Window/Vearth")]
+        [MenuItem("Vearth/Vearth Editor")]
         static void Init()
         {
 
             vearthTabs[0] = new TerrainTab("Configure Terrain GameObject from the Following Settings:");
-            vearthTabs[1] = new TreesTab("Genarates a Tree GameObject that you could put to your terrain" );
-            vearthTabs[2] = new FlowersTab("Genarates a Flower GameObject that you could put to your terrain");
-            vearthTabs[3] = new TerrainTab("");
-
+            vearthTabs[1] = new TerrainDetailsTab("Generate detail layers for your terrain(s) with a stack of 10 height/slope rules.");
+            vearthTabs[2] = new TreesTab("Genarates a Tree GameObject that you could put to your terrain" );
+            vearthTabs[3] = new FlowersTab("Genarates a Flower GameObject that you could put to your terrain");
+ 
             // Get existing open window or if none, make a new one:
-            Vearth window = (Vearth)EditorWindow.GetWindow(typeof(Vearth), false, "Vearth");
+            Vearth window = (Vearth)EditorWindow.GetWindow(typeof(Vearth), false, "Vearth 1.0 Alpha");
             window.minSize = new Vector2(450, 300);
             window.Show();
         }
@@ -119,6 +119,23 @@ namespace Vearth3D {
                         EditorStyles.toolbarButton);
 
             } EditorGUILayout.EndVertical();
+        }
+
+        public static void BeginVearthBox(string label) {
+            EditorGUILayout.LabelField(label, EditorStyles.toolbarButton);
+
+            EditorGUILayout.BeginVertical(EditorStyles.textField); 
+                    
+            GUIStyle SectionStyle = new GUIStyle();
+            SectionStyle.padding = new RectOffset(7, 7, 7, 7);
+
+            EditorGUILayout.BeginVertical(SectionStyle); 
+                    
+        }
+
+        public static void EndVearthBox() {
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndVertical();
         }
     }
 

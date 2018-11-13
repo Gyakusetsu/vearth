@@ -141,26 +141,26 @@ public class TEDetail : TEGroup
 				
 				teDetailSplatPrototypeEnable[teDetailRuleIndex] = GUILayout.Toggle(teDetailSplatPrototypeEnable[teDetailRuleIndex],"Filter By Splatmap");
 				if(teDetailSplatPrototypeEnable[teDetailRuleIndex]==true){
-				GUILayout.BeginHorizontal();
-				GUILayout.Label ("Prototype:", GUILayout.Width(96));
-				if(TerrainEdge.selectedObject.GetComponent<Terrain>().terrainData.splatPrototypes.Length>0){
-					SplatPrototype[] splatdata = TerrainEdge.selectedObject.GetComponent<Terrain>().terrainData.splatPrototypes;
-					string[] teSplatTextures = new string[splatdata.Length];
-					if(splatdata.Length>0){
-						for(int i=0;i<splatdata.Length;i++){
-							teSplatTextures[i] = splatdata[i].texture.name;
-						}
-						teDetailSplatPrototypeMatch[teDetailRuleIndex] = EditorGUILayout.Popup(teDetailSplatPrototypeMatch[teDetailRuleIndex],teSplatTextures,GUILayout.MinWidth(40));
-					} 
-				} else {
-					GUILayout.Label ("No textures on this terrain!");	
-				}
-				GUILayout.EndHorizontal();
-				GUILayout.BeginHorizontal();
-					GUILayout.Label ("Threshold:", GUILayout.Width(96));
-					teDetailSplatPrototypeAmount[teDetailRuleIndex] = GUILayout.HorizontalSlider(teDetailSplatPrototypeAmount[teDetailRuleIndex],0.0f,1.0f,GUILayout.MinWidth(40));
-					GUILayout.Label (teDetailSplatPrototypeAmount[teDetailRuleIndex].ToString("N2"), GUILayout.Width(40));
-				GUILayout.EndHorizontal();
+					GUILayout.BeginHorizontal();
+					GUILayout.Label ("Prototype:", GUILayout.Width(96));
+					if(TerrainEdge.selectedObject.GetComponent<Terrain>().terrainData.splatPrototypes.Length>0){
+						SplatPrototype[] splatdata = TerrainEdge.selectedObject.GetComponent<Terrain>().terrainData.splatPrototypes;
+						string[] teSplatTextures = new string[splatdata.Length];
+						if(splatdata.Length>0){
+							for(int i=0;i<splatdata.Length;i++){
+								teSplatTextures[i] = splatdata[i].texture.name;
+							}
+							teDetailSplatPrototypeMatch[teDetailRuleIndex] = EditorGUILayout.Popup(teDetailSplatPrototypeMatch[teDetailRuleIndex],teSplatTextures,GUILayout.MinWidth(40));
+						} 
+					} else {
+						GUILayout.Label ("No textures on this terrain!");	
+					}
+					GUILayout.EndHorizontal();
+					GUILayout.BeginHorizontal();
+						GUILayout.Label ("Threshold:", GUILayout.Width(96));
+						teDetailSplatPrototypeAmount[teDetailRuleIndex] = GUILayout.HorizontalSlider(teDetailSplatPrototypeAmount[teDetailRuleIndex],0.0f,1.0f,GUILayout.MinWidth(40));
+						GUILayout.Label (teDetailSplatPrototypeAmount[teDetailRuleIndex].ToString("N2"), GUILayout.Width(40));
+					GUILayout.EndHorizontal();
 				}
             }
             GUILayout.BeginHorizontal();

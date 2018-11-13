@@ -57,6 +57,12 @@ namespace Vearth3D {
 
         int FlowTextureID = 0;
 
+        bool ElevationShow = false;
+
+        bool SlopeShow = false;
+
+
+
         public TerrainTab(string description) : base(description) {
             Generate2DNoise(SelectedNoise);
         }
@@ -65,107 +71,93 @@ namespace Vearth3D {
         {
             EditorGUILayout.BeginVertical(); {
 
-                EditorGUILayout.LabelField("Noise Settings", EditorStyles.toolbarButton);
-
-                EditorGUILayout.BeginVertical(EditorStyles.textField); {
+                Vearth.BeginVearthBox("Noise Settings"); {
                         
-                    GUIStyle SectionStyle = new GUIStyle();
-                    SectionStyle.padding = new RectOffset(7, 7, 7, 7);
+                    EditorGUILayout.BeginHorizontal(); {
 
-                    EditorGUILayout.BeginVertical(SectionStyle); {
-                        
-                        EditorGUILayout.BeginHorizontal(); {
-
-                            EditorGUILayout.BeginVertical(); {
-                                
-                                EditorGUI.BeginChangeCheck ();
-
-                                EditorGUILayout.LabelField("Parameters", EditorStyles.boldLabel);
-                                EditorGUILayout.Space();
-
-                                SelectedNoise = EditorGUILayout.Popup("Type / Algorithm", SelectedNoise, NoiseTypes);
-
-                                    GUILayout.Space(3);
-                                Seed = EditorGUILayout.IntSlider("Seed", Seed, 0, 65535);
-
-                                    GUILayout.Space(3);
-                                Frequency = EditorGUILayout.Slider("Frequency", Frequency, 0.01f, 4f);
-
-                                    GUILayout.Space(3);
-                                Lacunarity = EditorGUILayout.Slider("Lacunarity", Lacunarity, 0.1f, 4f);
-
-                                    GUILayout.Space(3);
-                                if (!NoiseTypes[SelectedNoise].Equals("Ridged Multifractal Noise")) {
-                                    Persistance = EditorGUILayout.Slider("Persistance", Persistance, 0.1f, 1.0f);
-                                }
-
-                                    GUILayout.Space(3);
-                                Octaves = EditorGUILayout.IntSlider("Octaves", Octaves, 1, 10);
-
-                                // check if changed
-                                if (EditorGUI.EndChangeCheck ()) {
-                                    Generate2DNoise(SelectedNoise);
-                                }
-                                
-                                    GUILayout.Space(3);
-                                Heights = EditorGUILayout.Slider("Heights", Heights, 0.1f, 1.0f);
-                                
-                                    GUILayout.Space(3);
-                                Alpha = EditorGUILayout.Slider("Alpha", Alpha, 0.1f, 1.0f);
-                            } EditorGUILayout.EndVertical();
+                        EditorGUILayout.BeginVertical(); {
                             
-                            GUILayout.Space(13f);
+                            EditorGUI.BeginChangeCheck ();
 
-                            EditorGUILayout.BeginVertical(GUILayout.MaxWidth(resolution + 3)); {
-                                GUILayout.Box(previewTexture);
-                                EditorGUILayout.Space();
-                                if (GUILayout.Button("Apply Noise", GUILayout.MinHeight(30))) {
-                                    if (Vearth.SelectedTerrain != null) {
-                                        Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,
-                                            "vearth:Generate All Heightmaps");
+                            EditorGUILayout.LabelField("Parameters", EditorStyles.boldLabel);
+                            EditorGUILayout.Space();
 
-                                        EditorUtility.DisplayProgressBar("Generating Terrain", "Generating "
-                                                            + Vearth.SelectedTerrain.name, 1f);
-                                        TerrainModder.ApplyHeightMap(Vearth.SelectedTerrain.GetComponent<Terrain>(),
-                                                                    previewModule, Heights, Alpha);
-                                        EditorUtility.ClearProgressBar();
-                                    } else {
-                                        EditorUtility.DisplayDialog("Vearth Error", "Please select a Terrain GameObject first!", "OK", "CANCEL");
-                                    }
+                            SelectedNoise = EditorGUILayout.Popup("Type / Algorithm", SelectedNoise, NoiseTypes);
+
+                                GUILayout.Space(3);
+                            Seed = EditorGUILayout.IntSlider("Seed", Seed, 0, 65535);
+
+                                GUILayout.Space(3);
+                            Frequency = EditorGUILayout.Slider("Frequency", Frequency, 0.01f, 4f);
+
+                                GUILayout.Space(3);
+                            Lacunarity = EditorGUILayout.Slider("Lacunarity", Lacunarity, 0.1f, 4f);
+
+                                GUILayout.Space(3);
+                            if (!NoiseTypes[SelectedNoise].Equals("Ridged Multifractal Noise")) {
+                                Persistance = EditorGUILayout.Slider("Persistance", Persistance, 0.1f, 1.0f);
+                            }
+
+                                GUILayout.Space(3);
+                            Octaves = EditorGUILayout.IntSlider("Octaves", Octaves, 1, 10);
+
+                            // check if changed
+                            if (EditorGUI.EndChangeCheck ()) {
+                                Generate2DNoise(SelectedNoise);
+                            }
+                            
+                                GUILayout.Space(3);
+                            Heights = EditorGUILayout.Slider("Heights", Heights, 0.1f, 1.0f);
+                            
+                                GUILayout.Space(3);
+                            Alpha = EditorGUILayout.Slider("Alpha", Alpha, 0.1f, 1.0f);
+                        } EditorGUILayout.EndVertical();
+                        
+                        GUILayout.Space(13f);
+
+                        EditorGUILayout.BeginVertical(GUILayout.MaxWidth(resolution + 3)); {
+                            GUILayout.Box(previewTexture);
+                            EditorGUILayout.Space();
+                            if (GUILayout.Button("Apply Noise", GUILayout.MinHeight(30))) {
+                                if (Vearth.SelectedTerrain != null) {
+                                    Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,
+                                        "vearth:Generate All Heightmaps");
+
+                                    EditorUtility.DisplayProgressBar("Generating Terrain", "Generating "
+                                                        + Vearth.SelectedTerrain.name, 1f);
+                                    TerrainModder.ApplyHeightMap(Vearth.SelectedTerrain.GetComponent<Terrain>(),
+                                                                previewModule, Heights, Alpha);
+                                    EditorUtility.ClearProgressBar();
+                                } else {
+                                    EditorUtility.DisplayDialog("Vearth Error", "Please select a Terrain GameObject first!", "OK", "CANCEL");
                                 }
-                            } EditorGUILayout.EndVertical(); 
+                            }
+                        } EditorGUILayout.EndVertical(); 
 
-                        } EditorGUILayout.EndHorizontal();
-                    } EditorGUILayout.EndVertical();
-                } EditorGUILayout.EndVertical();
+                    } EditorGUILayout.EndHorizontal();
+
+                } Vearth.EndVearthBox();
                 
                 EditorGUILayout.Space();
 
-                EditorGUILayout.LabelField("SplatMap Texture Settings", EditorStyles.toolbarButton);
+                Vearth.BeginVearthBox("SplatMap Texture Settings"); {
 
-                EditorGUILayout.BeginVertical(EditorStyles.textField); {
+                    EditorGUILayout.BeginVertical(); {
                         
-                    GUIStyle SectionStyle = new GUIStyle();
-                    SectionStyle.padding = new RectOffset(7, 7, 7, 7);
+                        if (Vearth.SelectedTerrain != null) {
+                            SplatPrototype[] splatdata = Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData.splatPrototypes;
+                            SplatTextureNames = new string[splatdata.Length];
 
-                    EditorGUILayout.BeginVertical(SectionStyle); {
-                        EditorGUILayout.BeginVertical(); {
-                            
-                            if (Vearth.SelectedTerrain != null) {
-                                SplatPrototype[] splatdata = Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData.splatPrototypes;
-                                SplatTextureNames = new string[splatdata.Length];
+                            if (splatdata.Length > 0) {
+                
+                                for (int i = 0; i < splatdata.Length; i++)
+                                {
+                                    SplatTextureNames[i] = splatdata[i].texture.name;
+                                }
 
-                                if (splatdata.Length > 0) {
-                   
-                                    for (int i = 0; i < splatdata.Length; i++)
-                                    {
-                                        SplatTextureNames[i] = splatdata[i].texture.name;
-                                    }
-
-
-                                    EditorGUILayout.LabelField("Elevations per Scale: ", EditorStyles.boldLabel);
+                                ElevationShow = EditorGUILayout.Foldout(ElevationShow, "Elevations per Scale: ");    
+                                if (ElevationShow) {
                                     EditorGUILayout.Space();
-
 
                                     EditorGUILayout.BeginHorizontal(); {  
                                         SplatElevationTextureID[0] = EditorGUILayout.Popup(SplatElevationTextureID[0], 
@@ -191,9 +183,13 @@ namespace Vearth3D {
                                         SplatElevationTextureID[10] = SplatElevationTextureID[9];
                                         SplatElevationHeight[10] = SplatElevationHeight[9];
                                     } EditorGUILayout.EndHorizontal();
+                                }
 
-                                    EditorGUILayout.Space();
-                                    EditorGUILayout.LabelField("Slope per Scale: ", EditorStyles.boldLabel);
+
+                                EditorGUILayout.Space();
+                                
+                                SlopeShow = EditorGUILayout.Foldout(SlopeShow, "Slope per Scale: ");
+                                if (SlopeShow) {
                                     EditorGUILayout.Space();
 
                                     EditorGUILayout.BeginHorizontal(); {
@@ -231,55 +227,57 @@ namespace Vearth3D {
                                         SplatSlopeTextureID[4] = SplatSlopeTextureID[3];
                                         SplatSlopeSteepness[4] = SplatSlopeSteepness[3];
                                     } EditorGUILayout.EndHorizontal();
-
-                                    EditorGUILayout.Space();
-                                    
-                                    UseFlowTexture = EditorGUILayout.BeginToggleGroup("Flow-Map Texturing", UseFlowTexture); {
-                                        
-                                        EditorGUILayout.Space();
-                                        FlowTextureID = EditorGUILayout.Popup(FlowTextureID, SplatTextureNames, GUILayout.Width(120)); 
-                                        GUILayout.Space(3);
-                                        FlowTextureParams[0] = EditorGUILayout.Slider("Iterations",FlowTextureParams[0],1f,100f);
-                                        GUILayout.Space(3);
-                                        FlowTextureParams[3] = EditorGUILayout.Slider("Initial",FlowTextureParams[3],0.0f,5.0f);
-                                        GUILayout.Space(3);
-                                        FlowTextureParams[1] = EditorGUILayout.Slider("Push Down",FlowTextureParams[1],0.05f,1.0f);
-                                        GUILayout.Space(3);
-                                        FlowTextureParams[2] = EditorGUILayout.Slider("Pull Down",FlowTextureParams[2],0.05f,1.0f);
-                                        GUILayout.Space(3);
-                                        FlowTextureParams[4] = EditorGUILayout.Slider("Min Slope",FlowTextureParams[4],0.05f,90.0f);
-                                        GUILayout.Space(3);
-                                    } EditorGUILayout.EndToggleGroup();
-
-                                    EditorGUILayout.Space();
-                                    if (GUILayout.Button("Apply Textures", GUILayout.MinHeight(30))) {
-                                        if (Vearth.SelectedTerrain != null) {
-                                            Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,
-                                                "vearth:Generate Splatmap For Selected Terrain");
-
-                                            EditorUtility.DisplayProgressBar("Generating SplatMaps", "Generating "
-                                                                + Vearth.SelectedTerrain.name, 1f);
-
-                                            TerrainModder.ApplyTextures(Vearth.SelectedTerrain.GetComponent<Terrain>(),
-                                                                        SplatElevationTextureID, SplatElevationHeight,
-                                                                        SplatSlopeTextureID, SplatSlopeSteepness, UseFlowTexture,
-                                                                        FlowTextureID, FlowTextureParams);
-                                            EditorUtility.ClearProgressBar();
-                                        } else {
-                                            EditorUtility.DisplayDialog("Vearth Error", "Please select a Terrain GameObject first!", "OK", "CANCEL");
-                                        }
-                                    }
-                                } else {
-                                    EditorGUILayout.LabelField("Selected terrain has no textures assigned.", EditorStyles.boldLabel);
                                 }
+
+                                EditorGUILayout.Space();
                                 
-                              
-                            } else {       
-                                EditorGUILayout.LabelField("Please select a Terrain GameObject first!", EditorStyles.boldLabel);
+                                UseFlowTexture = EditorGUILayout.ToggleLeft("Flow-Map Texturing", UseFlowTexture); 
+                                
+                                if (UseFlowTexture) {
+                                    
+                                    EditorGUILayout.Space();
+                                    FlowTextureID = EditorGUILayout.Popup("Flow Texture", FlowTextureID, SplatTextureNames, GUILayout.Width(120)); 
+                                    GUILayout.Space(3);
+                                    FlowTextureParams[0] = EditorGUILayout.Slider("Iterations",FlowTextureParams[0],1f,100f);
+                                    GUILayout.Space(3);
+                                    FlowTextureParams[3] = EditorGUILayout.Slider("Initial",FlowTextureParams[3],0.0f,5.0f);
+                                    GUILayout.Space(3);
+                                    FlowTextureParams[1] = EditorGUILayout.Slider("Push Down",FlowTextureParams[1],0.05f,1.0f);
+                                    GUILayout.Space(3);
+                                    FlowTextureParams[2] = EditorGUILayout.Slider("Pull Down",FlowTextureParams[2],0.05f,1.0f);
+                                    GUILayout.Space(3);
+                                    FlowTextureParams[4] = EditorGUILayout.Slider("Min Slope",FlowTextureParams[4],0.05f,90.0f);
+                                    GUILayout.Space(3);
+                                } 
+
+                                EditorGUILayout.Space();
+                                if (GUILayout.Button("Apply Textures", GUILayout.MinHeight(30))) {
+                                    if (Vearth.SelectedTerrain != null) {
+                                        Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,
+                                            "vearth:Generate Splatmap For Selected Terrain");
+
+                                        EditorUtility.DisplayProgressBar("Generating SplatMaps", "Generating "
+                                                            + Vearth.SelectedTerrain.name, 1f);
+
+                                        TerrainModder.ApplyTextures(Vearth.SelectedTerrain.GetComponent<Terrain>(),
+                                                                    SplatElevationTextureID, SplatElevationHeight,
+                                                                    SplatSlopeTextureID, SplatSlopeSteepness, UseFlowTexture,
+                                                                    FlowTextureID, FlowTextureParams);
+                                        EditorUtility.ClearProgressBar();
+                                    } else {
+                                        EditorUtility.DisplayDialog("Vearth Error", "Please select a Terrain GameObject first!", "OK", "CANCEL");
+                                    }
+                                }
+                            } else {
+                                EditorGUILayout.LabelField("Selected terrain has no textures assigned.", EditorStyles.boldLabel);
                             }
-                        } EditorGUILayout.EndVertical();
+                            
+                            
+                        } else {       
+                            EditorGUILayout.LabelField("Please select a Terrain GameObject first!", EditorStyles.boldLabel);
+                        }
                     } EditorGUILayout.EndVertical();
-                } EditorGUILayout.EndVertical();
+                } Vearth.EndVearthBox();
             } EditorGUILayout.EndVertical();
         }   
 

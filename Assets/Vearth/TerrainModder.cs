@@ -249,7 +249,58 @@ namespace Vearth3D {
 			terrain.Flush();		
 		}
 	
+		public static void ApplyDetails(Terrain terrain,
+										int[] DetailRulePrototypeID, float[,] DetailRuleParams,
+										bool[] DetailSplatPrototypeEnable, int[] DetailSplatPrototypeMatch,
+										float[] DetailSplatPrototypeAmount) {
+
+			TerrainData terdata = terrain.terrainData;
+			int res = terdata.detailResolution;
+			int[,] detaildata = new int[res,res];
+			float tmpHeight = 0.0f;
+			float tmpSlope = 0.0f;
+			float strengthmult = 1.0f;
+			for(int layer=0; layer<terdata.detailPrototypes.Length; layer++){
+				terdata.SetDetailLayer(0,0,layer,detaildata);
+			}
+			float addAmount = 0.0f;
+			float tmpSplatAmount = 0f;
+			for(int ruleId=0;ruleId<10;ruleId++){
+				if(DetailRulePrototypeID[ruleId]>0){
+					detaildata = terdata.GetDetailLayer(0,0,res,res,DetailRulePrototypeID[ruleId]);
+					float[,,] splatMaps = terdata.GetAlphamaps(0,0,terdata.alphamapResolution,terdata.alphamapResolution);
+					float resmult = (1.0f / (float)res)*(float)terdata.alphamapResolution;
+					for(int y=0;y<res;y++){
+						for(int x=0;x<res;x++){
+							strengthmult = DetailRuleParams[ruleId,6];
+							tmpHeight = (terdata.GetHeight(y,x)/(terdata.size.y));		
+							tmpSlope = terdata.GetSteepness(((1.0f/(float)res)*y)+(0.5f/(float)res),((1.0f/(float)res)*x)+(0.5f/(float)res));
+							if(DetailSplatPrototypeEnable[ruleId]==true){
+								tmpSplatAmount = splatMaps[(int)(resmult*(float)x),(int)(resmult*(float)y),DetailSplatPrototypeMatch[ruleId]]; 
+								if(tmpSplatAmount<DetailSplatPrototypeAmount[ruleId]){strengthmult = 0f;}
+							}
+							if(tmpHeight<DetailRuleParams[ruleId,0]){strengthmult = 0.0f;}
+							if(tmpHeight>DetailRuleParams[ruleId,1]){strengthmult = 0.0f;}
+							if(tmpSlope<DetailRuleParams[ruleId,2]){strengthmult = 0.0f;}
+							if(tmpSlope>DetailRuleParams[ruleId,3]){strengthmult = 0.0f;}
+							if(UnityEngine.Random.value<DetailRuleParams[ruleId,7]){
+								addAmount = strengthmult;
+								int tmpval = detaildata[x,y]+(int)addAmount;
+								if(tmpval>15){tmpval=15;}
+								detaildata[x,y]=tmpval;
+							}
+						}
+					}
+
+					if(DetailRulePrototypeID[ruleId]-1<terdata.detailPrototypes.Length){
+						terdata.SetDetailLayer(0,0,DetailRulePrototypeID[ruleId]-1,detaildata);
+					}
+				}	
+			}
+		}
 	}
+
+
 }
 
 

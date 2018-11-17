@@ -1,10 +1,11 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
 namespace Vearth3D {
     public class TerrainDetailsTab : VearthTab {
         
-        public static string[] DetailRules = new string[10] {"1","2","3","4","5","6","7","8","9","10"};
+        public static string[] DetailRules = new string[10] {"Detail Rule 1","Detail Rule 2","Detail Rule 3","Detail Rule 4","Detail Rule 5","Detail Rule 6","Detail Rule 7","Detail Rule 8","Detail Rule 9","Detail Rule 10"};
         public static int DetailRuleIndex = 0;
         public static int[] DetailRulePrototypeID = new int[10];
         public static float[,] DetailRuleParams = new float[10,8];
@@ -29,7 +30,7 @@ namespace Vearth3D {
                 if (Vearth.SelectedTerrain != null) {     
                     EditorGUILayout.BeginVertical(); {
                         EditorGUILayout.BeginHorizontal(); {
-                            DetailRuleIndex = EditorGUILayout.Popup("Detail Rule", DetailRuleIndex, DetailRules);
+                            DetailRuleIndex = EditorGUILayout.Popup(DetailRuleIndex, DetailRules);
                             DetailPrototype[] detaildata = Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData.detailPrototypes;
                             string[] teDetailOptions = new string[detaildata.Length + 1];
                             teDetailOptions[0] = "(none)";
@@ -59,13 +60,17 @@ namespace Vearth3D {
                         if (DetailRulePrototypeID[DetailRuleIndex] > 0)
                         {
                             GUILayout.BeginHorizontal();
-                            EditorGUILayout.MinMaxSlider("Height", ref DetailRuleParams[DetailRuleIndex, 0], ref DetailRuleParams[DetailRuleIndex, 1], 0.0f, 1.0f);
+                            GUILayout.Label("Height");
+                            GUILayout.Label (DetailRuleParams[DetailRuleIndex,0].ToString("N2"), GUILayout.Width(40));
+                            EditorGUILayout.MinMaxSlider(ref DetailRuleParams[DetailRuleIndex, 0], ref DetailRuleParams[DetailRuleIndex, 1], 0.0f, 1.0f);
                             GUILayout.Label(DetailRuleParams[DetailRuleIndex, 1].ToString("N2"), GUILayout.Width(40));
                             GUILayout.EndHorizontal();
                             GUILayout.Space(3);
 
-                            GUILayout.BeginHorizontal();
-                            EditorGUILayout.MinMaxSlider("Slope", ref DetailRuleParams[DetailRuleIndex, 2], ref DetailRuleParams[DetailRuleIndex, 3], 0.0f, 90.0f);
+                            GUILayout.BeginHorizontal();   
+                            GUILayout.Label("Slope");
+                            GUILayout.Label(DetailRuleParams[DetailRuleIndex, 2].ToString("N2"), GUILayout.Width(40));
+                            EditorGUILayout.MinMaxSlider(ref DetailRuleParams[DetailRuleIndex, 2], ref DetailRuleParams[DetailRuleIndex, 3], 0.0f, 90.0f);
                             GUILayout.Label(DetailRuleParams[DetailRuleIndex, 3].ToString("N2"), GUILayout.Width(40));
                             GUILayout.EndHorizontal();
                             GUILayout.Space(3);
@@ -128,3 +133,4 @@ namespace Vearth3D {
         }
     }
 }
+#endif

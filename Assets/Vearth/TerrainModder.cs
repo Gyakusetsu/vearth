@@ -1,4 +1,4 @@
-
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using LibNoise;
@@ -302,5 +302,4 @@ namespace Vearth3D {
 
 
 }
-
-
+#endif

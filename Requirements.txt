@@ -1,5 +1,2 @@
-- Terrain + Noise
 - Persistent Flower and Tree Creation
-- Grass Spawn
-- Texturing Terrain
 - Waters / Clouds / etc.

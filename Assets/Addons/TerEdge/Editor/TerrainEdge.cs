@@ -1257,10 +1257,10 @@ public class TENoiseLab : TEGroup
             if (tIdx == 0) { moduleBase[channelId] = new Perlin(frequency[channelId], lacunarity[channelId], persistance[channelId], octaves[channelId], seed[channelId], QualityMode.High); }
             if (tIdx == 1) { moduleBase[channelId] = new Billow(frequency[channelId], lacunarity[channelId], persistance[channelId], octaves[channelId], seed[channelId], QualityMode.High); }
             if (tIdx == 2) { moduleBase[channelId] = new RidgedMultifractal(frequency[channelId], lacunarity[channelId], octaves[channelId], seed[channelId], QualityMode.High); }
-        //    if (tIdx == 3) { moduleBase[channelId] = new Voronoi(frequency[channelId], displacement[channelId], seed[channelId], distance[channelId]); }
-        //    if (tIdx == 4) { moduleBase[channelId] = new BrownianMotion(frequency[channelId], lacunarity[channelId], octaves[channelId], seed[channelId], QualityMode.High); }
-        //    if (tIdx == 5) { moduleBase[channelId] = new HeterogeneousMultiFractal(frequency[channelId], lacunarity[channelId], octaves[channelId], persistance[channelId], seed[channelId], offset[channelId], QualityMode.High); }
-        //    if (tIdx == 6) { moduleBase[channelId] = new HybridMulti(frequency[channelId], lacunarity[channelId], octaves[channelId], persistance[channelId], seed[channelId], offset[channelId], gain[channelId], QualityMode.High); }
+    	    if (tIdx == 3) { moduleBase[channelId] = new Voronoi(frequency[channelId], displacement[channelId], seed[channelId], distance[channelId]); }
+            if (tIdx == 4) { moduleBase[channelId] = new BrownianMotion(frequency[channelId], lacunarity[channelId], octaves[channelId], seed[channelId], QualityMode.High); }
+            if (tIdx == 5) { moduleBase[channelId] = new HeterogeneousMultiFractal(frequency[channelId], lacunarity[channelId], octaves[channelId], persistance[channelId], seed[channelId], offset[channelId], QualityMode.High); }
+            if (tIdx == 6) { moduleBase[channelId] = new HybridMulti(frequency[channelId], lacunarity[channelId], octaves[channelId], persistance[channelId], seed[channelId], offset[channelId], gain[channelId], QualityMode.High); }
         }
         if (teNoiseChanTypeIndex[channelId] == 2)
         {

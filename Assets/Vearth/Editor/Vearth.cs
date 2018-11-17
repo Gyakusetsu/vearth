@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Vearth3D {
     {
         int toolbarIndex = 0;
 
-        string[] toolbarTitles = {"Terrain", "Terrain Details", "Trees", "Flowers"};
+        string[] toolbarTitles = {"Terrain", "Terrain Details", "Terrain Stitch", "Trees Details"};
 
         Vector2 scrollPos;
 
@@ -33,6 +34,12 @@ namespace Vearth3D {
         public ReorderableList m_FlowersReorderableList = null;
 
         void OnEnable() {
+            vearthTabs[0] = new TerrainTab("Configure Terrain GameObject from the Following Settings:");
+            vearthTabs[1] = new TerrainDetailsTab("Generate detail layers for your terrain(s) with a stack of 10 height/slope rules.");
+            vearthTabs[2] = new TerrainStitchTab("Stitch Terrain with the same Height, Width and Resolution only! Please use only with terrains that contains small details.");
+            vearthTabs[3] = new TreesDetailsTab("Genarates a Tree GameObject that you could put to your terrain" );
+        //    vearthTabs[3] = new FlowersTab("Genarates a Flower GameObject that you could put to your terrain");
+ 
                 
             Vearth target = this;
             int TOP_PADDING = 2;
@@ -65,14 +72,8 @@ namespace Vearth3D {
         [MenuItem("Vearth/Vearth Editor")]
         static void Init()
         {
-
-            vearthTabs[0] = new TerrainTab("Configure Terrain GameObject from the Following Settings:");
-            vearthTabs[1] = new TerrainDetailsTab("Generate detail layers for your terrain(s) with a stack of 10 height/slope rules.");
-            vearthTabs[2] = new TreesTab("Genarates a Tree GameObject that you could put to your terrain" );
-            vearthTabs[3] = new FlowersTab("Genarates a Flower GameObject that you could put to your terrain");
- 
             // Get existing open window or if none, make a new one:
-            Vearth window = (Vearth)EditorWindow.GetWindow(typeof(Vearth), false, "Vearth 1.0 Alpha");
+            Vearth window = (Vearth)EditorWindow.GetWindow(typeof(Vearth), false, "Vearth 1.0");
             window.minSize = new Vector2(450, 300);
             window.Show();
         }
@@ -140,3 +141,4 @@ namespace Vearth3D {
     }
 
 }
+#endif

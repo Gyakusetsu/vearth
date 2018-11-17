@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using LibNoise;
@@ -236,7 +237,7 @@ namespace Vearth3D {
                                 if (UseFlowTexture) {
                                     
                                     EditorGUILayout.Space();
-                                    FlowTextureID = EditorGUILayout.Popup("Flow Texture", FlowTextureID, SplatTextureNames, GUILayout.Width(120)); 
+                                    FlowTextureID = EditorGUILayout.Popup("Flow Texture", FlowTextureID, SplatTextureNames); 
                                     GUILayout.Space(3);
                                     FlowTextureParams[0] = EditorGUILayout.Slider("Iterations",FlowTextureParams[0],1f,100f);
                                     GUILayout.Space(3);
@@ -320,3 +321,4 @@ namespace Vearth3D {
         }
     }
 }
+#endif

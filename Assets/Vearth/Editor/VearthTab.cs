@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 namespace Vearth3D {
     public abstract class VearthTab {
 
@@ -10,3 +11,4 @@ namespace Vearth3D {
         public abstract void ShowTabContent();
     }
 }
+#endif

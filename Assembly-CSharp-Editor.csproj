@@ -82,12 +82,11 @@
      <Compile Include="Assets\Packages\ProceduralFlower\Scripts\Editor\PFShapeWindow.cs" />
      <Compile Include="Assets\Packages\ProceduralFlower\Scripts\Editor\PFTesterInspector.cs" />
      <Compile Include="Assets\Packages\ProceduralTree\Scripts\Editor\ProceduralModelingEditor.cs" />
-     <Compile Include="Assets\Terrain Stitch\Terrain Stitch Scripts\Editor\TerrainScaleEditor.cs" />
-     <Compile Include="Assets\Terrain Stitch\Terrain Stitch Scripts\Editor\TerrainStitchEditor.cs" />
      <Compile Include="Assets\Vearth\Editor\FlowersTab.cs" />
      <Compile Include="Assets\Vearth\Editor\TerrainDetailsTab.cs" />
+     <Compile Include="Assets\Vearth\Editor\TerrainStitchTab.cs" />
      <Compile Include="Assets\Vearth\Editor\TerrainTab.cs" />
-     <Compile Include="Assets\Vearth\Editor\TreesTab.cs" />
+     <Compile Include="Assets\Vearth\Editor\TreesDetailsTab.cs" />
      <Compile Include="Assets\Vearth\Editor\Vearth.cs" />
      <Compile Include="Assets\Vearth\Editor\VearthTab.cs" />
  <Reference Include="UnityEditor.StandardEvents">

@@ -60,7 +60,7 @@ namespace Vearth3D {
                         if (DetailRulePrototypeID[DetailRuleIndex] > 0)
                         {
                             GUILayout.BeginHorizontal();
-                            GUILayout.Label("Height");
+                            GUILayout.Label("Height", GUILayout.Width(140));
                             GUILayout.Label (DetailRuleParams[DetailRuleIndex,0].ToString("N2"), GUILayout.Width(40));
                             EditorGUILayout.MinMaxSlider(ref DetailRuleParams[DetailRuleIndex, 0], ref DetailRuleParams[DetailRuleIndex, 1], 0.0f, 1.0f);
                             GUILayout.Label(DetailRuleParams[DetailRuleIndex, 1].ToString("N2"), GUILayout.Width(40));
@@ -68,7 +68,7 @@ namespace Vearth3D {
                             GUILayout.Space(3);
 
                             GUILayout.BeginHorizontal();   
-                            GUILayout.Label("Slope");
+                            GUILayout.Label("Slope", GUILayout.Width(140));
                             GUILayout.Label(DetailRuleParams[DetailRuleIndex, 2].ToString("N2"), GUILayout.Width(40));
                             EditorGUILayout.MinMaxSlider(ref DetailRuleParams[DetailRuleIndex, 2], ref DetailRuleParams[DetailRuleIndex, 3], 0.0f, 90.0f);
                             GUILayout.Label(DetailRuleParams[DetailRuleIndex, 3].ToString("N2"), GUILayout.Width(40));

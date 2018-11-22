@@ -121,14 +121,14 @@ namespace Vearth3D {
                 GUILayout.EndHorizontal();
                 if(teTreeRuleProtoId[teTreeRuleIndex]>0){
                     GUILayout.BeginHorizontal();
-                        GUILayout.Label ("Height");
+                        GUILayout.Label ("Height", GUILayout.Width(140));
                         GUILayout.Label (teTreeRuleParams[teTreeRuleIndex,0].ToString("N2"), GUILayout.Width(40));
                         EditorGUILayout.MinMaxSlider(ref teTreeRuleParams[teTreeRuleIndex,0],ref teTreeRuleParams[teTreeRuleIndex,1],0.0f,1.0f,GUILayout.MinWidth(40));
                         GUILayout.Label (teTreeRuleParams[teTreeRuleIndex,1].ToString("N2"), GUILayout.Width(40));
                     GUILayout.EndHorizontal();
                     GUILayout.Space(3);
                     GUILayout.BeginHorizontal();
-                        GUILayout.Label ("Slope");
+                        GUILayout.Label ("Slope", GUILayout.Width(140));
                         GUILayout.Label (teTreeRuleParams[teTreeRuleIndex,2].ToString("N2"), GUILayout.Width(40));
                         EditorGUILayout.MinMaxSlider(ref teTreeRuleParams[teTreeRuleIndex,2],ref teTreeRuleParams[teTreeRuleIndex,3],0.0f,90.0f,GUILayout.MinWidth(40));
                         GUILayout.Label (teTreeRuleParams[teTreeRuleIndex,3].ToString("N2"), GUILayout.Width(40));
@@ -203,8 +203,9 @@ namespace Vearth3D {
                     GUI.backgroundColor = new Color(1f,1f,1f,1f);			
                 }
                 
+				EditorGUILayout.Space();
                 GUILayout.BeginHorizontal();
-                if(GUILayout.Button("Selected")){
+                if(GUILayout.Button("Apply Tree Details", GUILayout.MinHeight(30))){
                     Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,"te:Generate Trees");
                     ApplyTreeDetails(Vearth.SelectedTerrain.GetComponent<Terrain>());
                 }

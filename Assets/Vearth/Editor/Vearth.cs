@@ -6,7 +6,6 @@ using UnityEditorInternal;
 
 namespace Vearth3D {
 
-    [System.Serializable]
     public class Vearth : EditorWindow
     {
         int toolbarIndex = 0;
@@ -18,12 +17,6 @@ namespace Vearth3D {
         static VearthTab[] vearthTabs = new VearthTab[4];
         
         public static GameObject SelectedTerrain;
-
-        [SerializeField]
-        public List<GameObject> TreesObjects = new List<GameObject>();
-        
-        [SerializeField]
-        public List<GameObject> FlowersObjects = new List<GameObject>();
 
         public SerializedObject m_TreesObjectsSO = null;
 

@@ -6,7 +6,7 @@ using LibNoise.Generator;
 using LibNoise.Operator;
 
 
-namespace Vearth3D {
+namespace Vearth {
     public class TerrainTab : VearthTab
     {
         int[] SelectedNoise = new int [20];
@@ -65,7 +65,7 @@ namespace Vearth3D {
         public static float[] noiseFuncMax = new float[20];
         public static int teNoiseChanIndex = 0;
         public static int[] teNoiseChanTypeIndex = new int[20];
-        public static string[] teFunctionTypes = new string[18] {"Add","Subtract","Multiply","Min","Max","Blend","Clamp","Power","Curve","Terrace","Abs","Exponent","Invert","ScaleBias","Turbulence","Select","TEWarp","WindexWarp"};
+        public static string[] teFunctionTypes = new string[18] {"Add","Subtract","Multiply","Min","Max","Blend","Clamp","Power","Curve","Terrace","Abs","Exponent","Invert","ScaleBias","Turbulence","Select","Warp","WindexWarp"};
         public static string[] teNoiseChannels = new string[20] {"Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7","Channel 8","Channel 9","Channel 10","Channel 11","Channel 12","Channel 13","Channel 14","Channel 15","Channel 16","Channel 17","Channel 18","Channel 19"};
         public static string[] teNoiseChannelTypes = new string[3] { "(none)", "Generator", "Function" };
         public static int[] teFunctionTypeIndex = new int[20];

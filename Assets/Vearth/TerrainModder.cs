@@ -5,7 +5,7 @@ using LibNoise;
 using LibNoise.Generator;
 using LibNoise.Operator;
 
-namespace Vearth3D {
+namespace Vearth {
     public class TerrainModder {
         public static void ApplyHeightMap(Terrain terrain, ModuleBase noise, float amplification, float alpha) {
             Vector3 gopos = terrain.gameObject.transform.position;

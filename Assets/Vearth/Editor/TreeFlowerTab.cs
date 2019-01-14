@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using mattatz.ProceduralFlower;
 
-namespace Vearth3D {
+namespace Vearth {
     
     public class TreeFlowerTab : VearthTab
     {
@@ -21,22 +22,24 @@ namespace Vearth3D {
 
 
 
-        float PetalDistance;
-        int PetalsCount;
-        int BudsCount;
-        float Scale;
-        float Minimum;
-        float Angle;
-        float AngleScale;
-        float Offset;
-        float Height;
-        int LeavesCount;
-        float ScaleRangeMin;
-        float ScaleRangeMax;
-        float SegmentRangeMin;
-        float SegmentRangeMax;
+        float PetalDistance = 0.01f;
+        int PetalsCount = 70;
+        int BudsCount = 8;
+        float Scale = 0.328f;
+        float Minimum = 0.1f;
+        float Angle = 87f;
+        float AngleScale = 0.92f;
+        float Offset = 0f;
+        float Height = 2f;
+        int LeavesCount = 6;
+        float ScaleRangeMin = 0.2f;
+        float ScaleRangeMax = 0.825f;
+        float SegmentRangeMin = 0.2f;
+        float SegmentRangeMax = 0.92f;
 
 
+
+		ProceduralFlower ProcFlower;
 
 
         public TreeFlowerTab(string description) : base(description) {}
@@ -112,6 +115,7 @@ namespace Vearth3D {
                             EditorGUILayout.LabelField("Parameters", EditorStyles.boldLabel);
                             EditorGUILayout.Space();
 
+                            ProcFlower = (ProceduralFlower)EditorGUILayout.ObjectField("Flower Data", ProcFlower, typeof(ProceduralFlower), true);
                             PetalDistance = EditorGUILayout.Slider("Petal distance from center", PetalDistance, 0.001f, 0.05f);
                             PetalsCount = EditorGUILayout.IntSlider("# of petals", PetalsCount, 4, 200);
                             BudsCount = EditorGUILayout.IntSlider("# of buds", BudsCount, 0, PetalsCount);
@@ -130,7 +134,25 @@ namespace Vearth3D {
 
                             EditorGUILayout.Space();
                             if (GUILayout.Button("Generate", GUILayout.MinHeight(20f))) {
-                                Debug.Log("Generate Me");
+                                ProcFlower.c = PetalDistance;
+                                ProcFlower.n = PetalsCount;
+                                ProcFlower.m = BudsCount;
+                                ProcFlower.scale = Scale;
+                                ProcFlower.min = Minimum;
+                                ProcFlower.angle = Angle;		
+                                ProcFlower.angleScale = AngleScale;
+		                        ProcFlower.offset = Offset;
+			                    ProcFlower.height = Height;
+			                    ProcFlower.leafCount = LeavesCount;
+			                    ProcFlower.leafScaleRange.x = ScaleRangeMin;
+                                ProcFlower.leafScaleRange.y = ScaleRangeMax;
+                                ProcFlower.leafSegmentRange.x = SegmentRangeMin;
+                                ProcFlower.leafSegmentRange.y = SegmentRangeMax;
+		
+                                var root = ProcFlower.Build(true);
+                                root.transform.position = Vector3.zero;
+                                root.GetComponent<PFPart>().Animate();
+                                root.name = "Procedural Flower";
                             }
                         } EditorGUILayout.EndVertical();
                         

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TerrainStitch;
 
-namespace Vearth3D {
+namespace Vearth {
     public class TerrainStitchTab : VearthTab
     {
         		public Vector2 firstPosition;
@@ -72,22 +72,10 @@ namespace Vearth3D {
         public override void ShowTabContent()
         {
             Vearth.BeginVearthBox("Stitcher"); {
-                
-                GUIContent method = new GUIContent ("Stitch Method", "Stitching method");
-                selectedMethod = EditorGUILayout.Popup (method, selectedMethod, options); 
 
 				GUILayout.Space(3);
-
-                if (selectedMethod == 0) {
-                    levelSmooth = EditorGUILayout.IntSlider ("Smooth level ", (int)levelSmooth, 5, 100);
-					GUILayout.Space(3);
-                    power = EditorGUILayout.IntSlider ("Power", (int)power, 1, 7);
-					GUILayout.Space(3);
-                    checkLength = EditorGUILayout.IntField ("Average length", checkLength);
-
-                } else {
-                    checkLength = EditorGUILayout.IntField ("Trend lenght", checkLength);
-                }
+                checkLength = EditorGUILayout.IntField ("Trend Stitch lenght", checkLength);
+                
             
                 EditorGUILayout.Space ();
         

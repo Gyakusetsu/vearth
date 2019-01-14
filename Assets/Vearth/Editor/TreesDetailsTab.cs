@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace Vearth3D {
+namespace Vearth {
     public class TreesDetailsTab : VearthTab
     {
         private static List<TreeInstance> TreeInstances;
@@ -142,11 +142,11 @@ namespace Vearth3D {
                     GUILayout.Space(3);
                     teTreeWidth[teTreeRuleIndex] = EditorGUILayout.Slider("Width", teTreeWidth[teTreeRuleIndex], 0.25f, 4.0f);
                     GUILayout.Space(3);
-                    teTreeWidthVariation[teTreeRuleIndex] = EditorGUILayout.Slider("Variation", teTreeWidthVariation[teTreeRuleIndex], 0.0f, 0.9f);
+                    teTreeWidthVariation[teTreeRuleIndex] = EditorGUILayout.Slider("Width Variation", teTreeWidthVariation[teTreeRuleIndex], 0.0f, 0.9f);
                     GUILayout.Space(3);
                     teTreeHeight[teTreeRuleIndex] = EditorGUILayout.Slider("Height", teTreeHeight[teTreeRuleIndex], 0.25f, 4.0f);
                     GUILayout.Space(3);
-                    teTreeHeightVariation[teTreeRuleIndex] = EditorGUILayout.Slider("Variation", teTreeHeightVariation[teTreeRuleIndex], 0.0f, 0.9f);
+                    teTreeHeightVariation[teTreeRuleIndex] = EditorGUILayout.Slider("Height Variation", teTreeHeightVariation[teTreeRuleIndex], 0.0f, 0.9f);
                     GUILayout.Space(3);
             
                     GUI.backgroundColor = new Color(0.9f,0.9f,1f,1f);
@@ -185,11 +185,11 @@ namespace Vearth3D {
                                 GUILayout.Space(3);
                                 tfRuleParams[teTreeRuleIndex,tfRuleIndex,6] = EditorGUILayout.Slider("Width",float.Parse(tfRuleParams[teTreeRuleIndex,tfRuleIndex,6]),1f,4f).ToString();
                                 GUILayout.Space(3);
-                                tfRuleParams[teTreeRuleIndex,tfRuleIndex,7] = EditorGUILayout.Slider("Variation",float.Parse(tfRuleParams[teTreeRuleIndex,tfRuleIndex,7]),0.0f,0.9f).ToString();
+                                tfRuleParams[teTreeRuleIndex,tfRuleIndex,7] = EditorGUILayout.Slider("Width Variation",float.Parse(tfRuleParams[teTreeRuleIndex,tfRuleIndex,7]),0.0f,0.9f).ToString();
                                 GUILayout.Space(3);
                                 tfRuleParams[teTreeRuleIndex,tfRuleIndex,8] = EditorGUILayout.Slider("Height",float.Parse(tfRuleParams[teTreeRuleIndex,tfRuleIndex,8]),1f,4f).ToString();
                                 GUILayout.Space(3);
-                                tfRuleParams[teTreeRuleIndex,tfRuleIndex,9] = EditorGUILayout.Slider("Variation",float.Parse(tfRuleParams[teTreeRuleIndex,tfRuleIndex,9]),0.0f,0.9f).ToString();
+                                tfRuleParams[teTreeRuleIndex,tfRuleIndex,9] = EditorGUILayout.Slider("Height Variation",float.Parse(tfRuleParams[teTreeRuleIndex,tfRuleIndex,9]),0.0f,0.9f).ToString();
                                 GUILayout.Space(3);		
                             }	
                         }

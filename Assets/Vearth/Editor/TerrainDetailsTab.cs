@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Vearth3D {
+namespace Vearth {
     public class TerrainDetailsTab : VearthTab {
         
         public static string[] DetailRules = new string[10] {"Detail Rule 1","Detail Rule 2","Detail Rule 3","Detail Rule 4","Detail Rule 5","Detail Rule 6","Detail Rule 7","Detail Rule 8","Detail Rule 9","Detail Rule 10"};

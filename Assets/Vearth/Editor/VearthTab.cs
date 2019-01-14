@@ -1,5 +1,5 @@
 #if UNITY_EDITOR
-namespace Vearth3D {
+namespace Vearth {
     public abstract class VearthTab {
 
         public string Description;

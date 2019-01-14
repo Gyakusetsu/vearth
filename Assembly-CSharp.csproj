@@ -215,7 +215,6 @@
      <Compile Include="Assets\Packages\ProceduralFlower\Scripts\PFShape.cs" />
      <Compile Include="Assets\Packages\ProceduralFlower\Scripts\PFStem.cs" />
      <Compile Include="Assets\Packages\ProceduralFlower\Scripts\ProceduralFlower.cs" />
-     <Compile Include="Assets\Packages\ProceduralTree\Demo\Deburger.cs" />
      <Compile Include="Assets\Packages\ProceduralTree\Demo\PTGarden.cs" />
      <Compile Include="Assets\Packages\ProceduralTree\Demo\PTGrowing.cs" />
      <Compile Include="Assets\Packages\ProceduralTree\Scripts\ConeIntersectionTest.cs" />

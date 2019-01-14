@@ -4,7 +4,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using UnityEditorInternal;
 
-namespace Vearth3D {
+namespace Vearth {
 
     public class Vearth : EditorWindow
     {

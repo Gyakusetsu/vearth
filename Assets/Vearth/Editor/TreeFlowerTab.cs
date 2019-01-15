@@ -4,12 +4,14 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using mattatz.ProceduralFlower;
+using ProceduralModeling;
+using UnityEngine.Rendering;
 
 namespace Vearth {
     
     public class TreeFlowerTab : VearthTab
     {
-        
+        Material TreeMaterial;
 		int Seed = 0;
 		float LengthAttenuation = 0.8f, RadiusAttenuation = 0.5f;
 		int BranchesMin = 1, BranchesMax = 3;
@@ -19,6 +21,15 @@ namespace Vearth {
         float BranchingAngle = 15f;
 		int HeightSegments = 10, RadialSegments = 8;
 		float BendDegree = 0.1f;
+		int Generations = 5;
+		float Length = 1f;
+		float Radius = 0.15f;
+		PFShape LeafShape;
+		Material LeafMaterial = null;
+		Mesh LeafMesh;
+		ShadowCastingMode LeafShadowCastingMode = ShadowCastingMode.On;
+		bool LeafReceiveShadows = true;
+		int LeafSeed = 0;
 
 
 
@@ -30,6 +41,8 @@ namespace Vearth {
         float Angle = 87f;
         float AngleScale = 0.92f;
         float Offset = 0f;
+
+
         float Height = 2f;
         int LeavesCount = 6;
         float ScaleRangeMin = 0.2f;
@@ -63,6 +76,8 @@ namespace Vearth {
                             EditorGUILayout.LabelField("Parameters", EditorStyles.boldLabel);
                             EditorGUILayout.Space();
 
+                            TreeMaterial = (Material)EditorGUILayout.ObjectField("Tree Material", TreeMaterial, typeof(Material), true);
+
                             Seed = EditorGUILayout.IntSlider("Seed", Seed, 0, 65535);
 
                             LengthAttenuation = EditorGUILayout.Slider("Length Attenuation", 
@@ -89,9 +104,60 @@ namespace Vearth {
 
                             BendDegree = EditorGUILayout.Slider("Bend Degree", BendDegree, 0.0f, 0.35f);
                             
+                            Generations = EditorGUILayout.IntSlider("Generations", Generations, 2, 8);
+                                                    
+                            Length = EditorGUILayout.Slider("Length", Length, 0.5f, 5f);
+                                                    
+                            Radius = EditorGUILayout.Slider("Radius", Radius, 0.1f, 2f);
+                                                    
+                            LeafShape = (PFShape)EditorGUILayout.ObjectField("Leaf Shape", LeafShape, typeof(PFShape), true);
+                          
+                            LeafMaterial = (Material)EditorGUILayout.ObjectField("Flower Data", LeafMaterial, typeof(Material), true);
+                     
+                            LeafShadowCastingMode = (ShadowCastingMode)EditorGUILayout.EnumPopup("Shadow Casting Mode", LeafShadowCastingMode);       
+
+                            LeafReceiveShadows = EditorGUILayout.Toggle("Receive Shadows", LeafReceiveShadows);
+
+                            LeafSeed = EditorGUILayout.IntField("Leaf Seed", LeafSeed);
+
                             EditorGUILayout.Space();
                             if (GUILayout.Button("Generate", GUILayout.MinHeight(20f))) {
-                                Debug.Log("Generate Me");
+                                TreeData dataTemp = new TreeData();
+                                dataTemp.randomSeed = Seed;
+                                dataTemp.lengthAttenuation = LengthAttenuation;
+                                dataTemp.radiusAttenuation = RadiusAttenuation;
+                                dataTemp.branchesMin = BranchesMin;
+                                dataTemp.branchesMax = BranchesMax;
+                                dataTemp.growthAngleMin = GrowthAngleMin;
+                                dataTemp.growthAngleMax = GrowthAngleMax;
+                                dataTemp.growthAngleScale = GrowthAngleScale;
+                                dataTemp.branchingAngle = BranchingAngle;
+                                dataTemp.heightSegments = HeightSegments;
+                                dataTemp.radialSegments = RadialSegments;
+                                dataTemp.bendDegree = BendDegree;
+
+                                GameObject objTemp = new GameObject();
+                                ProceduralTree tempTree = objTemp.AddComponent(typeof(ProceduralTree)) as ProceduralTree;
+                                tempTree.leafData = new ShapeData();
+
+                                tempTree.data = dataTemp;
+                                tempTree.generations = Generations;
+                                tempTree.length = Length;
+                                tempTree.radius = Radius;
+
+                                tempTree.height = Radius;
+                                tempTree.leafCount = LeavesCount;
+                                tempTree.leafScaleRange.x = ScaleRangeMin;
+                                tempTree.leafScaleRange.y = ScaleRangeMax;
+                                tempTree.leafSegmentRange.x = SegmentRangeMin;
+                                tempTree.leafSegmentRange.y = SegmentRangeMax;
+                                tempTree.leafData.shape = LeafShape;
+                                tempTree.leafData.material = LeafMaterial;
+                                tempTree.leafData.shadowCastingMode = LeafShadowCastingMode;
+                                tempTree.leafData.receiveShadows = LeafReceiveShadows;
+
+                                tempTree.transform.position = Vector3.zero;
+                                objTemp.GetComponent<Renderer>().material = TreeMaterial;
                             }
                         } EditorGUILayout.EndVertical();
                         

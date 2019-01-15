@@ -14,10 +14,10 @@ namespace ProceduralModeling {
 
 		public TreeData Data { get { return data; } } 
 
-		[SerializeField] TreeData data;
-		[SerializeField, Range(2, 8)] protected int generations = 5;
-		[SerializeField, Range(0.5f, 5f)] protected float length = 1f;
-		[SerializeField, Range(0.1f, 2f)] protected float radius = 0.15f;
+		[SerializeField] public TreeData data;
+		[SerializeField, Range(2, 8)] public int generations = 5;
+		[SerializeField, Range(0.5f, 5f)] public float length = 1f;
+		[SerializeField, Range(0.1f, 2f)] public float radius = 0.15f;
 
         [HideInInspector] public float height = 2f;
 		[HideInInspector] public int leafCount = 6;
@@ -27,8 +27,8 @@ namespace ProceduralModeling {
 
 		
 	//	[SerializeField] StemData stemData;
-		[SerializeField] ShapeData leafData;
-        [SerializeField] int seed = 0;
+		[SerializeField] public ShapeData leafData;
+        [SerializeField] public int seed = 0;
         PFRandom rand;
 
 		List<Point> leafPoints;

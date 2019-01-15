@@ -116,7 +116,7 @@ MonoBehaviour:
     growthAngleMin: -15
     growthAngleMax: 15
     growthAngleScale: 4
-    branchingAngle: 15
+    branchingAngle: 30
     heightSegments: 10
     radialSegments: 8
     bendDegree: 0.1

@@ -211,8 +211,8 @@ namespace mattatz.ProceduralFlower {
 	#region Define Data classes
 
 	[System.Serializable]
-	class ShapeData {
-		[SerializeField] PFShape shape;
+	public class ShapeData {
+		[SerializeField] public PFShape shape;
 		public Material material = null;
 		[HideInInspector] public Mesh mesh;
 		public ShadowCastingMode shadowCastingMode = ShadowCastingMode.On;

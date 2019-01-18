@@ -11,7 +11,9 @@ namespace Vearth {
     {
         int[] SelectedNoise = new int [20];
 
-        string[] NoiseTypes = {"Perlin Noise", "Billow Noise", "Ridged Multifractal Noise"};
+        string[] NoiseTypes = {"Perlin Noise", 
+                                "Billow Noise", "Ridged MultiFractal Noise",
+                                "Brownian Motion", "Heterogeneous MultiFractal", "Hybrid MultiFractal"};
 
         int[] Seed = new int[20] {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
@@ -139,12 +141,30 @@ namespace Vearth {
 
                                     GUILayout.Space(3);
 
-                                if (!NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Ridged Multifractal Noise")) {
+                                if (!NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Ridged MultiFractal Noise")
+                                    && !NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Brownian Motion")) {
+
                                     Persistance[teNoiseChanIndex] = EditorGUILayout.Slider("Persistance", 
                                         Persistance[teNoiseChanIndex], 0.1f, 1.0f);
-                                }
+                                        
 
                                     GUILayout.Space(3);
+                                }
+
+                                if (NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Heterogeneous MultiFractal")
+                                    || NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Hybrid MultiFractal")) {
+
+				                    offset[teNoiseChanIndex] = EditorGUILayout.Slider("Offset", offset[teNoiseChanIndex], 0.01f, 1f);
+                                    
+                                    GUILayout.Space(3);
+                                }
+
+                                if (NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Hybrid MultiFractal")) {
+                                    gain[teNoiseChanIndex] = EditorGUILayout.Slider("Gain", gain[teNoiseChanIndex], 0.0f, 1f);
+                                    
+                                    GUILayout.Space(3);
+                                }
+
                                 Octaves[teNoiseChanIndex] = EditorGUILayout.IntSlider("Octaves", 
                                     Octaves[teNoiseChanIndex], 1, 10);
                                 
@@ -454,6 +474,15 @@ namespace Vearth {
                     case 2:
                         moduleBase[channelId] = new RidgedMultifractal(Frequency[channelId], Lacunarity[channelId], 
                                         Octaves[channelId], Seed[channelId], QualityMode.High);
+                        break;
+                    case 3:
+                        moduleBase[channelId] = new BrownianMotion(Frequency[channelId], Lacunarity[channelId], Octaves[channelId], Seed[channelId], QualityMode.High);
+                        break;
+                    case 4:
+                        moduleBase[channelId] = new HeterogeneousMultiFractal(Frequency[channelId], Lacunarity[channelId], Octaves[channelId], Persistance[channelId], Seed[channelId], offset[channelId], QualityMode.High);
+                        break;
+                    case 5:
+                        moduleBase[channelId] = new HybridMulti(Frequency[channelId], Lacunarity[channelId], Octaves[channelId], Persistance[channelId], Seed[channelId], offset[channelId], gain[channelId], QualityMode.High);
                         break;
                 }
             }

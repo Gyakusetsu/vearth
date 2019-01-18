@@ -215,9 +215,12 @@
      <Compile Include="Assets\Packages\ProceduralTree\Scripts\ProceduralModelingBase.cs" />
      <Compile Include="Assets\Packages\ProceduralTree\Scripts\ProceduralTree.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Generator\Billow.cs" />
+     <Compile Include="Assets\Vearth\LibNoise.Unity\Generator\BrownianMotion.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Generator\Checker.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Generator\Const.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Generator\Cylinders.cs" />
+     <Compile Include="Assets\Vearth\LibNoise.Unity\Generator\HeterogeneousMultiFractal.cs" />
+     <Compile Include="Assets\Vearth\LibNoise.Unity\Generator\HybridMulti.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Generator\Perlin.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Generator\RidgedMultifractal.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Generator\Spheres.cs" />

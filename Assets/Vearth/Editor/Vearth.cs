@@ -31,34 +31,6 @@ namespace Vearth {
             vearthTabs[1] = new TerrainDetailsTab("Generate detail layers for your terrain(s) with a stack of 10 height/slope rules.");
             vearthTabs[2] = new TerrainStitchTab("Stitch Terrain with the same Height, Width and Resolution only! Please use only with terrains that contains small details.");
             vearthTabs[3] = new TreesDetailsTab("Genarates a Tree GameObject that you could put to your terrain" );
-        //    vearthTabs[3] = new FlowersTab("Genarates a Flower GameObject that you could put to your terrain");
- 
-                
-            Vearth target = this;
-            int TOP_PADDING = 2;
-
-            m_TreesObjectsSO = new SerializedObject(target);
-            m_TreesReorderableList = new ReorderableList(m_TreesObjectsSO, m_TreesObjectsSO.FindProperty("TreesObjects"), true, true, true, true);
-        
-            m_TreesReorderableList.drawHeaderCallback = (rect) => EditorGUI.LabelField(rect, "Trees");
-            m_TreesReorderableList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
-            {
-                rect.y += TOP_PADDING;
-                rect.height = EditorGUIUtility.singleLineHeight;
-                EditorGUI.PropertyField(rect, m_TreesReorderableList.serializedProperty.GetArrayElementAtIndex(index), GUIContent.none);
-            };
-
-            
-            m_FlowersObjectsSO = new SerializedObject(target);
-            m_FlowersReorderableList = new ReorderableList(m_FlowersObjectsSO, m_FlowersObjectsSO.FindProperty("FlowersObjects"), true, true, true, true);
-        
-            m_FlowersReorderableList.drawHeaderCallback = (rect) => EditorGUI.LabelField(rect, "Flowers");
-            m_FlowersReorderableList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
-            {
-                rect.y += TOP_PADDING;
-                rect.height = EditorGUIUtility.singleLineHeight;
-                EditorGUI.PropertyField(rect, m_FlowersReorderableList.serializedProperty.GetArrayElementAtIndex(index), GUIContent.none);
-            };
         }
 
         // Add menu named "My Window" to the Window menu
@@ -67,7 +39,7 @@ namespace Vearth {
         {
             // Get existing open window or if none, make a new one:
             Vearth window = (Vearth)EditorWindow.GetWindow(typeof(Vearth), false, "Vearth 1.0");
-            window.minSize = new Vector2(450, 300);
+            window.minSize = new Vector2(450, 100);
             window.Show();
         }
 

@@ -53,15 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Addons\TerEdge\LibNoise.Unity\Generator\BrownianMotion.cs" />
-     <Compile Include="Assets\Addons\TerEdge\LibNoise.Unity\Generator\HeterogeneousMultiFractal.cs" />
-     <Compile Include="Assets\Addons\TerEdge\LibNoise.Unity\Generator\HybridMulti.cs" />
-     <Compile Include="Assets\Addons\TerEdge\LibNoise.Unity\Operator\TEWarp.cs" />
-     <Compile Include="Assets\Addons\TerEdge\LibNoise.Unity\Operator\WindexWarp.cs" />
-     <Compile Include="Assets\Addons\TerEdge\teFunc.cs" />
-     <Compile Include="Assets\Addons\TerEdge\teMap.cs" />
-     <Compile Include="Assets\Addons\TerEdge\teShaders.cs" />
-     <Compile Include="Assets\Addons\TerEdge\teUI.cs" />
      <Compile Include="Assets\Invector-3rdPersonController\Basic Locomotion\3D Models\Others\HealthItem\vAnimateUV.cs" />
      <Compile Include="Assets\Invector-3rdPersonController\Basic Locomotion\Scripts\Camera\CullingFadeControl\vCullingFadeControl.cs" />
      <Compile Include="Assets\Invector-3rdPersonController\Basic Locomotion\Scripts\Camera\vThirdPersonCamera.cs" />
@@ -253,8 +244,10 @@
      <Compile Include="Assets\Vearth\LibNoise.Unity\Operator\Select.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Operator\Subtract.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Operator\Terrace.cs" />
+     <Compile Include="Assets\Vearth\LibNoise.Unity\Operator\TEWarp.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Operator\Translate.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Operator\Turbulence.cs" />
+     <Compile Include="Assets\Vearth\LibNoise.Unity\Operator\WindexWarp.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Properties\AssemblyInfo.cs" />
      <Compile Include="Assets\Vearth\LibNoise.Unity\Utils.cs" />
      <Compile Include="Assets\Vearth\Terrain Stitch\Terrain Stitch Scripts\IntArrayComparer.cs" />
@@ -286,7 +279,6 @@
      <None Include="Assets\Invector-3rdPersonController\Basic Locomotion\Scripts\XInput\Plugins\MITLicense.txt" />
      <None Include="Assets\Packages\ProceduralTree\Shaders\ProceduralTreeNormal.shader" />
      <None Include="Assets\NatureStarterKit\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
-     <None Include="Assets\Vearth\LibNoise.Unity\COPYING.txt" />
      <None Include="Assets\NatureStarterKit\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBlur.shader" />
      <None Include="Assets\NatureStarterKit\Standard Assets\Effects\ImageEffects\Shaders\SSAOShader.shader" />
      <None Include="Assets\NatureStarterKit\Standard Assets\Effects\ImageEffects\Shaders\ConvertDepth.shader" />
@@ -305,7 +297,6 @@
      <None Include="Assets\NatureStarterKit\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
      <None Include="Assets\NatureStarterKit\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
      <None Include="Assets\NatureStarterKit\Standard Assets\Effects\ImageEffects\Shaders\CameraMotionBlur.shader" />
-     <None Include="Assets\Vearth\LibNoise.Unity\COPYING.LESSER.txt" />
      <None Include="Assets\NatureStarterKit\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\DLAA.shader" />
      <None Include="Assets\NatureStarterKit\Standard Assets\Effects\ImageEffects\Shaders\NoiseAndGrainDX11.shader" />
      <None Include="Assets\Packages\ProceduralFlower\Shaders\Bud.shader" />

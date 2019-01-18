@@ -275,6 +275,15 @@ namespace Vearth {
         return 1f/(float)(offX+offZ);
     }		
 
+	public static Color colorParse(string colorText){
+		if(colorText.IndexOf("RGBA")<0){return Color.white;}
+		string colorTextStripped = colorText.Replace("RGBA(","").Replace(")","").Replace(" ","");
+		string[] colorTextSegs = colorTextStripped.Split(",".ToCharArray());
+		return new Color(float.Parse(colorTextSegs[0]),float.Parse(colorTextSegs[1]),float.Parse(colorTextSegs[2]),float.Parse(colorTextSegs[3]));
+	}
+
+
+
 	
 	public static void TreeSurroundFoliage(int treeRuleId,float inY, float inX){
 		GameObject go = Vearth.SelectedTerrain;
@@ -369,8 +378,8 @@ namespace Vearth {
 									newTree.position = new Vector3(treeX,0,treeZ);
 									newTree.widthScale = float.Parse(tfRuleParams[treeRuleId,tfRuleId,6]) + (float.Parse(tfRuleParams[treeRuleId,tfRuleId,7])*(UnityEngine.Random.value-0.75f));
 									newTree.heightScale = float.Parse(tfRuleParams[treeRuleId,tfRuleId,8]) + (float.Parse(tfRuleParams[treeRuleId,tfRuleId,9])*(UnityEngine.Random.value-0.75f));
-									newTree.color = TerEdge.teFunc.colorParse(tfRuleParams[treeRuleId,tfRuleId,4]);
-									newTree.lightmapColor = TerEdge.teFunc.colorParse(tfRuleParams[treeRuleId,tfRuleId,5]);
+									newTree.color = colorParse(tfRuleParams[treeRuleId,tfRuleId,4]);
+									newTree.lightmapColor = colorParse(tfRuleParams[treeRuleId,tfRuleId,5]);
 									go.GetComponent<Terrain>().AddTreeInstance(newTree);
 								}
 							}

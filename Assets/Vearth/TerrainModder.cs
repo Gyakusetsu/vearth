@@ -216,7 +216,6 @@ namespace Vearth {
 							int convY = (int)(((float)hY/(float)terdata.alphamapResolution) * (float)terdata.heightmapResolution);
 							
 							float addAmount = flows[convY,convX];
-						//	addAmount = TerEdge.teFunc.clampVal(addAmount);
 							addAmount = Mathf.Clamp01(addAmount);
 							
 							float remainder = 1.0f-addAmount;

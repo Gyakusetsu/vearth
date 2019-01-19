@@ -581,6 +581,8 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{AE2E7DC0-2E2F-D1B9-DF55-130AE892AA2D}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="UnityMeshSimplifier.csproj">
       <Project>{8B27D3BC-5E15-717F-1E14-A6B710F7CC10}</Project>      <Name>UnityMeshSimplifier</Name>    </ProjectReference>
   </ItemGroup>

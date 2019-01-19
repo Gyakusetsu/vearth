@@ -27,10 +27,10 @@ namespace Vearth {
         public ReorderableList m_FlowersReorderableList = null;
 
         void OnEnable() {
-            vearthTabs[0] = new TerrainTab("Configure Terrain GameObject from the Following Settings:");
-            vearthTabs[1] = new TerrainDetailsTab("Generate detail layers for your terrain(s) with a stack of 10 height/slope rules.");
+            vearthTabs[0] = new TerrainTab("Configure Terrain GameObject from the following settings with Noise and a stack of 10 height/slope rules");
+            vearthTabs[1] = new TerrainDetailsTab("Generate detail layers for your terrain");
             vearthTabs[2] = new TerrainStitchTab("Stitch Terrain with the same Height, Width and Resolution only! Please use only with terrains that contains small details.");
-            vearthTabs[3] = new TreesDetailsTab("Genarates a Tree GameObject that you could put to your terrain" );
+            vearthTabs[3] = new TreesDetailsTab("Genarates Tree detail layers that you could put to your terrain");
         }
 
         // Add menu named "My Window" to the Window menu

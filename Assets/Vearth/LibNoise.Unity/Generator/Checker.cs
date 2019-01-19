@@ -34,7 +34,7 @@ namespace LibNoise.Generator
             var iy = (int) (Math.Floor(Utils.MakeInt32Range(y)));
             var iz = (int) (Math.Floor(Utils.MakeInt32Range(z)));
             return (ix & 1 ^ iy & 1 ^ iz & 1) != 0 ? -1.0 : 1.0;
-        }
+        }   
 
         #endregion
     }

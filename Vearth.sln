@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityMeshSimplifier", "UnityMeshSimplifier.csproj", "{8B27D3BC-5E15-717F-1E14-A6B710F7CC10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{AE2E7DC0-2E2F-D1B9-DF55-130AE892AA2D}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{B613A6BB-D8F0-FF03-867A-2526DC36443D}"
 EndProject
 Global
@@ -21,6 +23,10 @@ Global
 		{8B27D3BC-5E15-717F-1E14-A6B710F7CC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B27D3BC-5E15-717F-1E14-A6B710F7CC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B27D3BC-5E15-717F-1E14-A6B710F7CC10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE2E7DC0-2E2F-D1B9-DF55-130AE892AA2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE2E7DC0-2E2F-D1B9-DF55-130AE892AA2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE2E7DC0-2E2F-D1B9-DF55-130AE892AA2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE2E7DC0-2E2F-D1B9-DF55-130AE892AA2D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B613A6BB-D8F0-FF03-867A-2526DC36443D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B613A6BB-D8F0-FF03-867A-2526DC36443D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B613A6BB-D8F0-FF03-867A-2526DC36443D}.Release|Any CPU.ActiveCfg = Release|Any CPU

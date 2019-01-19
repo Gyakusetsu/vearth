@@ -206,7 +206,7 @@ namespace Vearth {
 				EditorGUILayout.Space();
                 GUILayout.BeginHorizontal();
                 if(GUILayout.Button("Apply Tree Details", GUILayout.MinHeight(30))){
-                    Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,"te:Generate Trees");
+                    Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,"Generate Trees");
                     ApplyTreeDetails(Vearth.SelectedTerrain.GetComponent<Terrain>());
                 }
                 GUILayout.EndHorizontal();

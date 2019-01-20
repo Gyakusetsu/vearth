@@ -297,6 +297,18 @@ namespace Vearth {
 				}	
 			}
 		}
+
+
+		public static void PutWatter(Terrain terrain, GameObject waterObj) {
+        	GameObject water  = PrefabUtility.InstantiatePrefab(waterObj as GameObject) as GameObject;
+			var waterPos = terrain.transform.position;
+			var terrainData = terrain.terrainData;
+			waterPos.x += terrainData.size.x / 2f;
+			waterPos.y = terrainData.size.y / 100f;
+			waterPos.z += terrainData.size.z / 2f;
+			water.transform.localScale = new Vector3((terrainData.size.x / 4) * 3, 1, (terrainData.size.z / 4) * 3);
+			water.transform.position = waterPos;
+		}
 	}
 
 

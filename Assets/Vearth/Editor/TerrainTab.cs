@@ -94,6 +94,8 @@ namespace Vearth {
         float tempFloat = 0;
         bool tempBool = false;
 
+        GameObject WaterObject;
+
         public TerrainTab(string description) : base(description) {
             Generate2DNoise(teNoiseChanIndex);
         }
@@ -445,6 +447,37 @@ namespace Vearth {
                         }
                     } EditorGUILayout.EndVertical();
                 } Vearth.EndVearthBox();
+
+                EditorGUILayout.Space();
+
+                Vearth.BeginVearthBox("Water"); {
+                    
+                    EditorGUILayout.BeginVertical(); {
+                        
+                        
+                        if (Vearth.SelectedTerrain != null) {
+                            
+                            
+                            WaterObject = EditorGUILayout.ObjectField("Water Object", (GameObject)WaterObject, typeof(GameObject), true) as GameObject;
+                            
+
+
+                            EditorGUILayout.Space();
+                            if (GUILayout.Button("Apply Water", GUILayout.MinHeight(30))) {
+                                if (Vearth.SelectedTerrain != null) {
+                                    TerrainModder.PutWatter(Vearth.SelectedTerrain.GetComponent<Terrain>(), WaterObject);
+                                } else {
+                                    EditorUtility.DisplayDialog("Vearth Error", "Please select a Terrain GameObject first!", "OK", "CANCEL");
+                                }
+                            }
+
+                        } else {       
+                            EditorGUILayout.LabelField("Please select a Terrain GameObject first!", EditorStyles.boldLabel);
+                        }
+                    
+                    } EditorGUILayout.EndVertical();
+                } Vearth.EndVearthBox();
+
             } EditorGUILayout.EndVertical();
         }   
 

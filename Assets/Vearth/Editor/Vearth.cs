@@ -4,6 +4,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using UnityEditorInternal;
 
+
 namespace Vearth {
 
     public class Vearth : EditorWindow
@@ -31,6 +32,9 @@ namespace Vearth {
             vearthTabs[1] = new TerrainDetailsTab("Generate detail layers for your terrain");
             vearthTabs[2] = new TerrainStitchTab("Stitch Terrain with the same Height, Width and Resolution only! Please use only with terrains that contains small details.");
             vearthTabs[3] = new TreesDetailsTab("Genarates Tree detail layers that you could put to your terrain");
+    
+   
+		//	SceneView.onSceneGUIDelegate = sceneEvents;
         }
 
         // Add menu named "My Window" to the Window menu
@@ -38,9 +42,27 @@ namespace Vearth {
         static void Init()
         {
             // Get existing open window or if none, make a new one:
-            Vearth window = (Vearth)EditorWindow.GetWindow(typeof(Vearth), false, "Vearth 1.0");
+            Vearth window = (Vearth)EditorWindow.GetWindow(typeof(Vearth), false, "Vearth");
             window.minSize = new Vector2(450, 100);
             window.Show();
+        }
+
+        void sceneEvents (SceneView sceneview) {
+            if (SelectedTerrain) {
+			    Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+                RaycastHit hit = new RaycastHit();
+                if(Physics.Raycast(ray, out hit, float.MaxValue)){
+                    Handles.DrawSphere(0, hit.point, Quaternion.identity, 100);
+                }
+            }
+        }
+
+        void Update() {
+        }
+
+         [DrawGizmo (GizmoType.Selected | GizmoType.NonSelected)]
+        static void DrawGizmoForTerrain(Terrain scr, GizmoType gizmoType)
+        {
         }
 
         void OnGUI()

@@ -96,6 +96,8 @@ namespace Vearth {
 
         GameObject WaterObject;
 
+        bool ActiveUpdate = false;
+
         public TerrainTab(string description) : base(description) {
             Generate2DNoise(teNoiseChanIndex);
         }
@@ -108,200 +110,201 @@ namespace Vearth {
                         
                     EditorGUILayout.BeginHorizontal(); {
 
-                        EditorGUILayout.BeginVertical(); {
-                            
-                            EditorGUI.BeginChangeCheck ();
-                            EditorGUILayout.BeginHorizontal(); {
-                                tempInt = teNoiseChanIndex;
-                                teNoiseChanIndex = EditorGUILayout.Popup(teNoiseChanIndex, teNoiseChannels);
-
-                                GUILayout.Space(6f);
-
-                                tempInt = teNoiseChanTypeIndex[teNoiseChanIndex];
-                                teNoiseChanTypeIndex[teNoiseChanIndex] = EditorGUILayout.Popup(teNoiseChanTypeIndex[teNoiseChanIndex], teNoiseChannelTypes);
-                            } EditorGUILayout.EndHorizontal();
-
-                            EditorGUILayout.Space();
-
-                            #region Generatorsss
-                            if (teNoiseChanTypeIndex[teNoiseChanIndex] == 1) {
-                                GUILayout.Label("Generator Settings", EditorStyles.miniBoldLabel);
-                                
-                                SelectedNoise[teNoiseChanIndex] = EditorGUILayout.Popup("Type / Algorithm", 
-                                    SelectedNoise[teNoiseChanIndex], NoiseTypes);
-
-                                    GUILayout.Space(3);
-                                Seed[teNoiseChanIndex] = EditorGUILayout.IntSlider("Seed", Seed[teNoiseChanIndex], 0, 65535);
-
-                                    GUILayout.Space(3);
-                                Frequency[teNoiseChanIndex] = EditorGUILayout.Slider("Frequency", 
-                                    Frequency[teNoiseChanIndex], 0.01f, 4f);
-
-                                    GUILayout.Space(3);
-                                Lacunarity[teNoiseChanIndex] = EditorGUILayout.Slider("Lacunarity", 
-                                    Lacunarity[teNoiseChanIndex], 0.1f, 4f);
-
-                                    GUILayout.Space(3);
-
-                                if (!NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Ridged MultiFractal Noise")
-                                    && !NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Brownian Motion")) {
-
-                                    Persistance[teNoiseChanIndex] = EditorGUILayout.Slider("Persistance", 
-                                        Persistance[teNoiseChanIndex], 0.1f, 1.0f);
-                                        
-
-                                    GUILayout.Space(3);
-                                }
-
-                                if (NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Heterogeneous MultiFractal")
-                                    || NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Hybrid MultiFractal")) {
-
-				                    offset[teNoiseChanIndex] = EditorGUILayout.Slider("Offset", offset[teNoiseChanIndex], 0.01f, 1f);
-                                    
-                                    GUILayout.Space(3);
-                                }
-
-                                if (NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Hybrid MultiFractal")) {
-                                    gain[teNoiseChanIndex] = EditorGUILayout.Slider("Gain", gain[teNoiseChanIndex], 0.0f, 1f);
-                                    
-                                    GUILayout.Space(3);
-                                }
-
-                                Octaves[teNoiseChanIndex] = EditorGUILayout.IntSlider("Octaves", 
-                                    Octaves[teNoiseChanIndex], 1, 10);
-                                
-                            }
-                            #endregion
-
-                            #region Functionsss
-                            if (teNoiseChanTypeIndex[teNoiseChanIndex] == 2)
-                            {
-                                GUILayout.BeginVertical();
-                                GUILayout.Label("Function Settings", EditorStyles.miniBoldLabel);
-                                GUILayout.BeginHorizontal();
-                                GUILayout.Label("Type", GUILayout.Width(80));
-                                tempInt = teFunctionTypeIndex[teNoiseChanIndex];
-                                teFunctionTypeIndex[teNoiseChanIndex] = EditorGUILayout.Popup(teFunctionTypeIndex[teNoiseChanIndex], teFunctionTypes);
-                                GUILayout.EndHorizontal();
-                                GUILayout.BeginHorizontal();
-                                GUILayout.Label("Source A", GUILayout.Width(80));
-                                tempInt = srcChannel1Id[teNoiseChanIndex];
-                                srcChannel1Id[teNoiseChanIndex] = EditorGUILayout.Popup(srcChannel1Id[teNoiseChanIndex], teNoiseChannels);
-                                GUILayout.EndHorizontal();
-                                if (teFunctionTypeIndex[teNoiseChanIndex] < 6)
-                                {
-                                    GUILayout.BeginHorizontal();
-                                    GUILayout.Label("Source B", GUILayout.Width(80));
-                                    tempInt = srcChannel2Id[teNoiseChanIndex];
-                                    srcChannel2Id[teNoiseChanIndex] = EditorGUILayout.Popup(srcChannel2Id[teNoiseChanIndex], teNoiseChannels);
-                                    GUILayout.EndHorizontal();
-                                }
-                                
-                                if (teFunctionTypeIndex[teNoiseChanIndex] == 5||teFunctionTypeIndex[teNoiseChanIndex] == 15)
-                                {
-                                    GUILayout.BeginHorizontal();
-                                    GUILayout.Label("Controller", GUILayout.Width(80));
-                                    tempInt = srcChannel3Id[teNoiseChanIndex];
-                                    srcChannel3Id[teNoiseChanIndex] = EditorGUILayout.Popup(srcChannel3Id[teNoiseChanIndex], teNoiseChannels);
-                                    GUILayout.EndHorizontal();
-                                }
-                                if(teFunctionTypeIndex[teNoiseChanIndex]==11){
-                                    tempDouble = exponent[teNoiseChanIndex];
-                                    exponent[teNoiseChanIndex] = EditorGUILayout.Slider("Exponent:",exponent[teNoiseChanIndex],0.0f,1.0f);
-                               }
-                                if(teFunctionTypeIndex[teNoiseChanIndex]==13){ // ScaleBias
-                                    tempDouble = scale[teNoiseChanIndex];
-                                    scale[teNoiseChanIndex] = EditorGUILayout.Slider("Scale:",scale[teNoiseChanIndex],0.0f,1.0f);
-                                    tempDouble = bias[teNoiseChanIndex];
-                                }
-                                if(teFunctionTypeIndex[teNoiseChanIndex]==14){
-                                    tempDouble = power[teNoiseChanIndex];
-                                    power[teNoiseChanIndex] = EditorGUILayout.Slider("Power:",power[teNoiseChanIndex],0.0f,1.0f);
-                                }
-                                if(teFunctionTypeIndex[teNoiseChanIndex]==15){
-                                    tempDouble = falloff[teNoiseChanIndex];
-                                    falloff[teNoiseChanIndex] = EditorGUILayout.Slider("Falloff:",falloff[teNoiseChanIndex],0.0f,1.0f);
-                                }
-                                if(teFunctionTypeIndex[teNoiseChanIndex]==6||teFunctionTypeIndex[teNoiseChanIndex] == 15)
-                                {
-                                    GUILayout.BeginHorizontal();
-                                    GUILayout.Label ("Limits", GUILayout.Width(80));
-                                    GUILayout.Label (noiseFuncMin[teNoiseChanIndex].ToString("N2"), GUILayout.Width(40));
-                                    tempFloat = noiseFuncMin[teNoiseChanIndex];
-                                    tempFloat2 = noiseFuncMax[teNoiseChanIndex];
-                                    EditorGUILayout.MinMaxSlider(ref noiseFuncMin[teNoiseChanIndex],ref noiseFuncMax[teNoiseChanIndex],0.0f,1.0f,GUILayout.MinWidth(40));
-                                    GUILayout.Label (noiseFuncMax[teNoiseChanIndex].ToString("N2"), GUILayout.Width(40));
-                                    GUILayout.EndHorizontal();
-                                }
-                                if(teFunctionTypeIndex[teNoiseChanIndex]>7&&teFunctionTypeIndex[teNoiseChanIndex]<10)
-                                {
-                                    GUILayout.BeginHorizontal();
-                                    GUILayout.Label ("Control Points", GUILayout.Width(80));
-                                    tempInt = controlpointcount[teNoiseChanIndex];
-                                    controlpointcount[teNoiseChanIndex] = (int)GUILayout.HorizontalSlider(controlpointcount[teNoiseChanIndex],4.0f,10.0f);
-                                    GUILayout.Label (controlpointcount[teNoiseChanIndex].ToString("N0"));
-                                    GUILayout.EndHorizontal();
-                                    GUILayout.BeginHorizontal(GUILayout.MaxHeight(80));
-                                        GUILayout.Label ("\nCurve\nControl\nPoints", GUILayout.Width(80),GUILayout.Height(70));
-                                        for(int i=0;i<controlpointcount[teNoiseChanIndex];i++){
-                                            GUILayout.BeginVertical(GUILayout.Width(16));
-                                            tempFloat = cpval[teNoiseChanIndex,i];
-                                            cpval[teNoiseChanIndex,i] = GUILayout.VerticalSlider(cpval[teNoiseChanIndex,i],-1.0f,1.0f);
-                                            GUI.enabled = true;
-                                            GUILayout.EndVertical();
-                                        }
-                                    GUILayout.EndHorizontal();
-                                    if(teFunctionTypeIndex[teNoiseChanIndex]==9)
-                                    {
-                                        tempBool = invertTerrace[teNoiseChanIndex];
-                                        invertTerrace[teNoiseChanIndex] = GUILayout.Toggle(invertTerrace[teNoiseChanIndex],"Invert Terraces");	
-                                   }
-                                    EditorGUILayout.Space();
-                                }
-                                GUILayout.EndVertical();
-                            }
-                            #endregion
-
-                            // check if changed
-                            if (EditorGUI.EndChangeCheck ()) {
-                                Generate2DNoise(teNoiseChanIndex);
-                            }
-
-                            if (teNoiseChanTypeIndex[teNoiseChanIndex] != 0) {
-                                GUILayout.Space(3);
-                                Heights = EditorGUILayout.Slider("Heights", Heights, 0.1f, 1.0f);
-                            
-                                GUILayout.Space(3);
-                                Alpha = EditorGUILayout.Slider("Alpha", Alpha, 0.1f, 1.0f);
-                            }
-
-                        } EditorGUILayout.EndVertical();
                         
-                        GUILayout.Space(13f);
+                        if (Vearth.SelectedTerrain != null) {
 
-                        
-                        if (teNoiseChanTypeIndex[teNoiseChanIndex] != 0) {
-                            EditorGUILayout.BeginVertical(GUILayout.MaxWidth(resolution + 3)); {
-                                GUILayout.Box(previewTexture);
+                            EditorGUILayout.BeginVertical(); {
+                                
+                                EditorGUI.BeginChangeCheck ();
+                                EditorGUILayout.BeginHorizontal(); {
+                                    tempInt = teNoiseChanIndex;
+                                    teNoiseChanIndex = EditorGUILayout.Popup(teNoiseChanIndex, teNoiseChannels);
+
+                                    GUILayout.Space(6f);
+
+                                    tempInt = teNoiseChanTypeIndex[teNoiseChanIndex];
+                                    teNoiseChanTypeIndex[teNoiseChanIndex] = EditorGUILayout.Popup(teNoiseChanTypeIndex[teNoiseChanIndex], teNoiseChannelTypes);
+                                } EditorGUILayout.EndHorizontal();
+
                                 EditorGUILayout.Space();
-                                if (GUILayout.Button("Apply Noise", GUILayout.MinHeight(30))) {
-                                    if (Vearth.SelectedTerrain != null) {
-                                        Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,
-                                            "vearth:Generate All Heightmaps");
 
-                                        EditorUtility.DisplayProgressBar("Generating Terrain", "Generating "
-                                                            + Vearth.SelectedTerrain.name, 1f);
-                                        TerrainModder.ApplyHeightMap(Vearth.SelectedTerrain.GetComponent<Terrain>(),
-                                                                    moduleBase[teNoiseChanIndex], Heights, Alpha);
-                                        EditorUtility.ClearProgressBar();
-                                    } else {
-                                        EditorUtility.DisplayDialog("Vearth Error", "Please select a Terrain GameObject first!", "OK", "CANCEL");
+                                #region Generatorsss
+                                if (teNoiseChanTypeIndex[teNoiseChanIndex] == 1) {
+                                    GUILayout.Label("Generator Settings", EditorStyles.miniBoldLabel);
+                                    
+                                    SelectedNoise[teNoiseChanIndex] = EditorGUILayout.Popup("Type / Algorithm", 
+                                        SelectedNoise[teNoiseChanIndex], NoiseTypes);
+
+                                        GUILayout.Space(3);
+                                    Seed[teNoiseChanIndex] = EditorGUILayout.IntSlider("Seed", Seed[teNoiseChanIndex], 0, 65535);
+
+                                        GUILayout.Space(3);
+                                    Frequency[teNoiseChanIndex] = EditorGUILayout.Slider("Frequency", 
+                                        Frequency[teNoiseChanIndex], 0.01f, 4f);
+
+                                        GUILayout.Space(3);
+                                    Lacunarity[teNoiseChanIndex] = EditorGUILayout.Slider("Lacunarity", 
+                                        Lacunarity[teNoiseChanIndex], 0.1f, 4f);
+
+                                        GUILayout.Space(3);
+
+                                    if (!NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Ridged MultiFractal Noise")
+                                        && !NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Brownian Motion")) {
+
+                                        Persistance[teNoiseChanIndex] = EditorGUILayout.Slider("Persistance", 
+                                            Persistance[teNoiseChanIndex], 0.1f, 1.0f);
+                                            
+
+                                        GUILayout.Space(3);
                                     }
-                                }
-                            } EditorGUILayout.EndVertical(); 
-                        }
 
-                 
+                                    if (NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Heterogeneous MultiFractal")
+                                        || NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Hybrid MultiFractal")) {
+
+                                        offset[teNoiseChanIndex] = EditorGUILayout.Slider("Offset", offset[teNoiseChanIndex], 0.01f, 1f);
+                                        
+                                        GUILayout.Space(3);
+                                    }
+
+                                    if (NoiseTypes[SelectedNoise[teNoiseChanIndex]].Equals("Hybrid MultiFractal")) {
+                                        gain[teNoiseChanIndex] = EditorGUILayout.Slider("Gain", gain[teNoiseChanIndex], 0.0f, 1f);
+                                        
+                                        GUILayout.Space(3);
+                                    }
+
+                                    Octaves[teNoiseChanIndex] = EditorGUILayout.IntSlider("Octaves", 
+                                        Octaves[teNoiseChanIndex], 1, 10);
+                                    
+                                }
+                                #endregion
+
+                                #region Functionsss
+                                if (teNoiseChanTypeIndex[teNoiseChanIndex] == 2)
+                                {
+                                    GUILayout.BeginVertical();
+                                    GUILayout.Label("Function Settings", EditorStyles.miniBoldLabel);
+                                    GUILayout.BeginHorizontal();
+                                    GUILayout.Label("Type", GUILayout.Width(80));
+                                    tempInt = teFunctionTypeIndex[teNoiseChanIndex];
+                                    teFunctionTypeIndex[teNoiseChanIndex] = EditorGUILayout.Popup(teFunctionTypeIndex[teNoiseChanIndex], teFunctionTypes);
+                                    GUILayout.EndHorizontal();
+                                    GUILayout.BeginHorizontal();
+                                    GUILayout.Label("Source A", GUILayout.Width(80));
+                                    tempInt = srcChannel1Id[teNoiseChanIndex];
+                                    srcChannel1Id[teNoiseChanIndex] = EditorGUILayout.Popup(srcChannel1Id[teNoiseChanIndex], teNoiseChannels);
+                                    GUILayout.EndHorizontal();
+                                    if (teFunctionTypeIndex[teNoiseChanIndex] < 6)
+                                    {
+                                        GUILayout.BeginHorizontal();
+                                        GUILayout.Label("Source B", GUILayout.Width(80));
+                                        tempInt = srcChannel2Id[teNoiseChanIndex];
+                                        srcChannel2Id[teNoiseChanIndex] = EditorGUILayout.Popup(srcChannel2Id[teNoiseChanIndex], teNoiseChannels);
+                                        GUILayout.EndHorizontal();
+                                    }
+                                    
+                                    if (teFunctionTypeIndex[teNoiseChanIndex] == 5||teFunctionTypeIndex[teNoiseChanIndex] == 15)
+                                    {
+                                        GUILayout.BeginHorizontal();
+                                        GUILayout.Label("Controller", GUILayout.Width(80));
+                                        tempInt = srcChannel3Id[teNoiseChanIndex];
+                                        srcChannel3Id[teNoiseChanIndex] = EditorGUILayout.Popup(srcChannel3Id[teNoiseChanIndex], teNoiseChannels);
+                                        GUILayout.EndHorizontal();
+                                    }
+                                    if(teFunctionTypeIndex[teNoiseChanIndex]==11){
+                                        tempDouble = exponent[teNoiseChanIndex];
+                                        exponent[teNoiseChanIndex] = EditorGUILayout.Slider("Exponent:",exponent[teNoiseChanIndex],0.0f,1.0f);
+                                }
+                                    if(teFunctionTypeIndex[teNoiseChanIndex]==13){ // ScaleBias
+                                        tempDouble = scale[teNoiseChanIndex];
+                                        scale[teNoiseChanIndex] = EditorGUILayout.Slider("Scale:",scale[teNoiseChanIndex],0.0f,1.0f);
+                                        tempDouble = bias[teNoiseChanIndex];
+                                    }
+                                    if(teFunctionTypeIndex[teNoiseChanIndex]==14){
+                                        tempDouble = power[teNoiseChanIndex];
+                                        power[teNoiseChanIndex] = EditorGUILayout.Slider("Power:",power[teNoiseChanIndex],0.0f,1.0f);
+                                    }
+                                    if(teFunctionTypeIndex[teNoiseChanIndex]==15){
+                                        tempDouble = falloff[teNoiseChanIndex];
+                                        falloff[teNoiseChanIndex] = EditorGUILayout.Slider("Falloff:",falloff[teNoiseChanIndex],0.0f,1.0f);
+                                    }
+                                    if(teFunctionTypeIndex[teNoiseChanIndex]==6||teFunctionTypeIndex[teNoiseChanIndex] == 15)
+                                    {
+                                        GUILayout.BeginHorizontal();
+                                        GUILayout.Label ("Limits", GUILayout.Width(80));
+                                        GUILayout.Label (noiseFuncMin[teNoiseChanIndex].ToString("N2"), GUILayout.Width(40));
+                                        tempFloat = noiseFuncMin[teNoiseChanIndex];
+                                        tempFloat2 = noiseFuncMax[teNoiseChanIndex];
+                                        EditorGUILayout.MinMaxSlider(ref noiseFuncMin[teNoiseChanIndex],ref noiseFuncMax[teNoiseChanIndex],0.0f,1.0f,GUILayout.MinWidth(40));
+                                        GUILayout.Label (noiseFuncMax[teNoiseChanIndex].ToString("N2"), GUILayout.Width(40));
+                                        GUILayout.EndHorizontal();
+                                    }
+                                    if(teFunctionTypeIndex[teNoiseChanIndex]>7&&teFunctionTypeIndex[teNoiseChanIndex]<10)
+                                    {
+                                        GUILayout.BeginHorizontal();
+                                        GUILayout.Label ("Control Points", GUILayout.Width(80));
+                                        tempInt = controlpointcount[teNoiseChanIndex];
+                                        controlpointcount[teNoiseChanIndex] = (int)GUILayout.HorizontalSlider(controlpointcount[teNoiseChanIndex],4.0f,10.0f);
+                                        GUILayout.Label (controlpointcount[teNoiseChanIndex].ToString("N0"));
+                                        GUILayout.EndHorizontal();
+                                        GUILayout.BeginHorizontal(GUILayout.MaxHeight(80));
+                                            GUILayout.Label ("\nCurve\nControl\nPoints", GUILayout.Width(80),GUILayout.Height(70));
+                                            for(int i=0;i<controlpointcount[teNoiseChanIndex];i++){
+                                                GUILayout.BeginVertical(GUILayout.Width(16));
+                                                tempFloat = cpval[teNoiseChanIndex,i];
+                                                cpval[teNoiseChanIndex,i] = GUILayout.VerticalSlider(cpval[teNoiseChanIndex,i],-1.0f,1.0f);
+                                                GUI.enabled = true;
+                                                GUILayout.EndVertical();
+                                            }
+                                        GUILayout.EndHorizontal();
+                                        if(teFunctionTypeIndex[teNoiseChanIndex]==9)
+                                        {
+                                            tempBool = invertTerrace[teNoiseChanIndex];
+                                            invertTerrace[teNoiseChanIndex] = GUILayout.Toggle(invertTerrace[teNoiseChanIndex],"Invert Terraces");	
+                                    }
+                                        EditorGUILayout.Space();
+                                    }
+                                    GUILayout.EndVertical();
+                                }
+                                #endregion
+
+                                // check if changed
+                                if (EditorGUI.EndChangeCheck ()) {
+                                    Generate2DNoise(teNoiseChanIndex);
+                                }
+
+                                if (teNoiseChanTypeIndex[teNoiseChanIndex] != 0) {
+                                    GUILayout.Space(3);
+                                    Heights = EditorGUILayout.Slider("Heights", Heights, 0.1f, 1.0f);
+                                
+                                    GUILayout.Space(3);
+                                    Alpha = EditorGUILayout.Slider("Alpha", Alpha, 0.1f, 1.0f);
+                                }
+
+                            } EditorGUILayout.EndVertical();
+                            
+                            GUILayout.Space(13f);
+
+                            
+                            if (teNoiseChanTypeIndex[teNoiseChanIndex] != 0) {
+                                EditorGUILayout.BeginVertical(GUILayout.MaxWidth(resolution + 3)); {
+                                    GUILayout.Box(previewTexture);
+                                    EditorGUILayout.Space();
+                                    if (GUILayout.Button("Apply Noise", GUILayout.MinHeight(30))) {
+                                            Undo.RegisterCompleteObjectUndo(Vearth.SelectedTerrain.GetComponent<Terrain>().terrainData,
+                                                "vearth:Generate All Heightmaps");
+
+                                            EditorUtility.DisplayProgressBar("Generating Terrain", "Generating " + Vearth.SelectedTerrain.name, 1f);
+                                            TerrainModder.ApplyHeightMap(Vearth.SelectedTerrain.GetComponent<Terrain>(),
+                                                                        moduleBase[teNoiseChanIndex], Heights, Alpha);
+                                            EditorUtility.ClearProgressBar();
+
+                                    }
+                                } EditorGUILayout.EndVertical(); 
+                            }
+
+                        } else {
+                            EditorGUILayout.LabelField("Please select a Terrain GameObject first!", EditorStyles.boldLabel);
+                        }
 
                     } EditorGUILayout.EndHorizontal();
 
@@ -437,6 +440,8 @@ namespace Vearth {
                                         EditorUtility.DisplayDialog("Vearth Error", "Please select a Terrain GameObject first!", "OK", "CANCEL");
                                     }
                                 }
+
+
                             } else {
                                 EditorGUILayout.LabelField("Selected terrain has no textures assigned.", EditorStyles.boldLabel);
                             }

@@ -112,7 +112,7 @@ namespace Vearth {
                                                     
                             LeafShape = (PFShape)EditorGUILayout.ObjectField("Leaf Shape", LeafShape, typeof(PFShape), true);
                           
-                            LeafMaterial = (Material)EditorGUILayout.ObjectField("Flower Data", LeafMaterial, typeof(Material), true);
+                            LeafMaterial = (Material)EditorGUILayout.ObjectField("Leaf Material", LeafMaterial, typeof(Material), true);
                      
                             LeafShadowCastingMode = (ShadowCastingMode)EditorGUILayout.EnumPopup("Shadow Casting Mode", LeafShadowCastingMode);       
 
@@ -158,6 +158,7 @@ namespace Vearth {
 
                                 tempTree.transform.position = Vector3.zero;
                                 objTemp.GetComponent<Renderer>().material = TreeMaterial;
+                                tempTree.name = "Procedural Tree";
                             }
                         } EditorGUILayout.EndVertical();
                         

@@ -269,7 +269,10 @@ namespace Vearth {
 
                                 // check if changed
                                 if (EditorGUI.EndChangeCheck ()) {
+                                    var timer = System.Diagnostics.Stopwatch.StartNew();
                                     Generate2DNoise(teNoiseChanIndex);
+                                    timer.Stop();
+                                    Debug.Log("Generated Noise in " + timer.ElapsedMilliseconds / 1000f + " seconds");
                                 }
 
                                 if (teNoiseChanTypeIndex[teNoiseChanIndex] != 0) {
@@ -294,10 +297,15 @@ namespace Vearth {
                                                 "vearth:Generate All Heightmaps");
 
                                             EditorUtility.DisplayProgressBar("Generating Terrain", "Generating " + Vearth.SelectedTerrain.name, 1f);
+                                   
+                                    var timer = System.Diagnostics.Stopwatch.StartNew();
                                             TerrainModder.ApplyHeightMap(Vearth.SelectedTerrain.GetComponent<Terrain>(),
                                                                         moduleBase[teNoiseChanIndex], Heights, Alpha);
-                                            EditorUtility.ClearProgressBar();
+                                          
 
+                                    timer.Stop();
+                                        Debug.Log("Applied Noise in " + timer.ElapsedMilliseconds / 1000f + " seconds");
+                                        EditorUtility.ClearProgressBar();
                                     }
                                 } EditorGUILayout.EndVertical(); 
                             }
